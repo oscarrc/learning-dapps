@@ -96,3 +96,34 @@ Ganache -> New Workspace (Ethereum)
 * Accounts and keys: configuracion de cuentas a generar
 * Chain: Configuración de la cadena. Límites de gas y hardfork a utilizar
 * Advanced: Otras opciones avanzadas
+
+
+&nbsp;
+
+**Conectar Smart Contract con Ganache**
+
+En Remix:
+1. Creamos un Smart Contract de ejemplo (*ganache.sol*)
+2. Cómo *Enviroment* seleccionamos *Web3 provider*
+3. En **Web3 provider endpoint**, colocamos la dirección del *RPC Server* de Ganache
+4. Con esto podemos ya desplegar nuestro Smart Contract localmente en Ganache (`Custom (5777) network`).
+
+En Ganache:
+* En el *Blocks* veremos los bloques minados y la siguiente información
+  * Número de bloque
+  * Fecha de minado
+  * Gas utilizado
+  
+* En *Transaction* veremos las transacciones realizadas pueden ser de tipo:
+  * **Contract Creation**: creación (despliegue) de contrato
+  * **Contract Call**: llamada a contrato
+  
+  De cada una de estas transacciones tendremos disponible la siguiente información:
+
+    * TX Haxh: hash de la transracción
+    * From address: dirección que realiza la transacción
+    * To address: dirección a que se dirige la transacción
+    * Gas used: gas utilzado
+    * Value: valor de la transacción en Ethers
+
+  Cada vez que se realice una transacción se generará un nuevo bloque.
