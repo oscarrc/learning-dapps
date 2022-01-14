@@ -127,3 +127,17 @@ En Ganache:
     * Value: valor de la transacción en Ethers
 
   Cada vez que se realice una transacción se generará un nuevo bloque.
+
+**Error de conexión de Ganache en Windows**
+
+Seguramente si usas Windows como Sistema Operativo es posible que tengas algún error para conectar Ganache con Remix usando Google Chrome, no obstante, hay varias soluciones para afrontar el problema.
+
+Es posible que tengas el error: *"Not possible to connect to the Web3 provider. Make sure the provider is running, a connection is open (via IPC or RPC) or that the provider plugin is properly configured."*
+
+Las soluciones pueden ser las siguientes:
+* Puedes resolverlo usando Firefox, otro navegador que permite hacer esta conexión sin problemas.
+* Para seguir usando Chrome existe la posibilidad de enlazar la cuenta de Ganache con Metamask y hacer una conexión de Remix con Metamask y la conexión será exitosa.
+  1. Agrega la red Ganache para tu Metamask
+  2. Desde tu Ganache visualiza la clave privada de una cuenta que desees importar a Metamask (mediante el símbolo de la llave en el lateral derecho) y seguidamente copia la clave privada.
+  3. En Metamask situate en la Blockchain de Ganache que has creado previamente en Metamask e importa la clave privada de la cuenta.
+  4. Finalmente, cuando establezcas la conexión desde Remix, situate en Injected Web3 para establecer una conexión con Metamask, y obviamente Metamask va a ofrecer el saldo que este presente en Ganache.
