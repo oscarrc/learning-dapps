@@ -11,3 +11,13 @@ Ganache es una cadena de bloques Ethereum personal, ejecutada en en local, que p
 
 * [Ganache GUI](https://trufflesuite.com/ganache/)
 * [Gahache CLI](https://docs.nethereum.com/en/latest/ethereum-and-clients/ganache-cli/)
+
+&nbsp;
+
+### 2.2 Node.js
+
+&nbsp;
+
+Necesitamos instalar Node.js para ejecutar Ganache CLI. Es una de las dependencias de desarrollo necesarioas para éste curso.
+
+[Node.js](https://nodejs.org/)
