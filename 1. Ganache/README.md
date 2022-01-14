@@ -16,7 +16,7 @@ Ganache es una cadena de bloques Ethereum personal, ejecutada en en local, que p
 
 &nbsp;
 
-**Node.js**
+**Instalación Node.js**
 
 Necesitamos instalar Node.js para ejecutar Ganache CLI. Es una de las dependencias de desarrollo necesarioas para éste curso.
 
@@ -85,4 +85,14 @@ Listening on 127.0.0.1:7545
 
 &nbsp;
 
-**Creacion de workspace en Ganache**
+**Creación de workspace en Ganache**
+
+Ganache -> New Workspace (Ethereum)
+
+* Workspace:
+  * Workspace name: nombre del workspace
+  * Truffle projects : projectos de Truffle configurados
+* Server: configuraciones del servidor (puerto, network id, hostaname, etc...)
+* Accounts and keys: configuracion de cuentas a generar
+* Chain: Configuración de la cadena. Límites de gas y hardfork a utilizar
+* Advanced: Otras opciones avanzadas
