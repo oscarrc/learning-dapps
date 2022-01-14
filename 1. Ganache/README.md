@@ -165,3 +165,35 @@ Una vez hecho esto, seleccionamos la red *Ganache* que acabamos de crear y vamos
    * Pegar clave privada
 
 Con esto tendríamos nuestra cuenta importada, y podemos ver el balance que tenemos, que coincidirá con el de Ganache.
+
+&nbsp;
+
+**Introducción a Ganache CLI**
+
+Ganache CLI es la última versión de TestRPC: un emulador de blockchain rápido y personalizable. Te permite hacer llamadas a la blockchain sin los gastos generales de ejecutar un nodo real de Ethereum.
+
+* Las transacciones se "minan" al instante.
+* No hay costes de transacción.
+* Las cuentas pueden ser recicladas, reiniciadas e instanciadas con una cantidad fija de Ether (sin necesidad de faucets o minería).
+* El precio del gas y la velocidad de minado se pueden modificar.
+* Una cómoda interfaz gráfica de usuario le ofrece una visión general de los eventos de su cadena de pruebas.
+
+Iniciaremos Ganache CLI con el comando `ganache-cli <opciones>`, siendo las opciones básicas:
+
+* `-a` o `--accounts`: Especifica el número de cuentas a generar al inicio.
+* `-b` o `--blocktime`: Especifica el tiempo de bloqueo en segundos para la minería automática. Por defecto es 0 y no hay minería automática.
+* `-d` o `--deterministic`: Genera direcciones deterministas basadas en un mnemónico predefinido.
+* `-n` o `--secure`: Bloquear las cuentas disponibles por defecto (bueno para la firma de transacciones de terceros).
+* `-m` o `--mnemónico`: Utiliza un mnemónico específico de la cartera HD para generar las direcciones iniciales.
+* `-p` o `--port`: Número de puerto para escuchar. El valor predeterminado es 8545.
+* `-h` o `--hostname`: Nombre de host para escuchar. Por defecto es el servidor de Node.listen().
+* `-s` o `--seed`: Utiliza datos arbitrarios para generar el mnemónico de la cartera HD a utilizar.
+* `-g` o `--gasPrice`: Utiliza un precio de gas personalizado (por defecto es 20000000000)
+* `-l` o `--gasLimit`: Utiliza un límite de gas personalizado (por defecto 90000)
+* `-f` o `--fork`: Fork desde otro cliente Ethereum actualmente en ejecución en un bloque determinado. La entrada debe ser la ubicación y el puerto HTTP del otro cliente, por ejemplo, http://localhost:8545. Puede especificar opcionalmente el bloque desde el que se va a bifurcar utilizando un signo @: http://localhost:8545@1599200.
+* `-i` o `--networkId`: Especifica el identificador de red que usará ganache-cli para identificarse (por defecto es la hora actual o el identificador de red del blockchain bifurcado si está configurado)
+* `--db`: Especifica una ruta a un directorio para guardar la base de datos de la cadena. Si ya existe una base de datos, ganache-cli inicializará esa cadena en lugar de crear una nueva.
+* `--debug`: Muestra los códigos de operación de la máquina virtual para su depuración.
+* `--mem`: Muestra las estadísticas de uso de memoria de ganache-cli. Esto reemplaza la salida normal.
+
+Podemos consultar el resto de opciones en el [Repo Github de Ganache-CLI](https://github.com/trufflesuite/ganache-cli-archive/blob/develop/README.md)
