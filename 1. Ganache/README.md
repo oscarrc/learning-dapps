@@ -197,3 +197,7 @@ Iniciaremos Ganache CLI con el comando `ganache-cli <opciones>`, siendo las opci
 * `--mem`: Muestra las estadísticas de uso de memoria de ganache-cli. Esto reemplaza la salida normal.
 
 Podemos consultar el resto de opciones en el [Repo Github de Ganache-CLI](https://github.com/trufflesuite/ganache-cli-archive/blob/develop/README.md)
+
+&nbsp;
+
+### 1.2. Primer proyecto con Solidity y Ganache
