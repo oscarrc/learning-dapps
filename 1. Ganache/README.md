@@ -97,7 +97,6 @@ Ganache -> New Workspace (Ethereum)
 * Chain: Configuración de la cadena. Límites de gas y hardfork a utilizar
 * Advanced: Otras opciones avanzadas
 
-
 &nbsp;
 
 **Conectar Smart Contract con Ganache**
@@ -130,14 +129,39 @@ En Ganache:
 
 **Error de conexión de Ganache en Windows**
 
+&nbsp;
+
 Seguramente si usas Windows como Sistema Operativo es posible que tengas algún error para conectar Ganache con Remix usando Google Chrome, no obstante, hay varias soluciones para afrontar el problema.
 
 Es posible que tengas el error: *"Not possible to connect to the Web3 provider. Make sure the provider is running, a connection is open (via IPC or RPC) or that the provider plugin is properly configured."*
 
 Las soluciones pueden ser las siguientes:
 * Puedes resolverlo usando Firefox, otro navegador que permite hacer esta conexión sin problemas.
-* Para seguir usando Chrome existe la posibilidad de enlazar la cuenta de Ganache con Metamask y hacer una conexión de Remix con Metamask y la conexión será exitosa.
-  1. Agrega la red Ganache para tu Metamask
-  2. Desde tu Ganache visualiza la clave privada de una cuenta que desees importar a Metamask (mediante el símbolo de la llave en el lateral derecho) y seguidamente copia la clave privada.
-  3. En Metamask situate en la Blockchain de Ganache que has creado previamente en Metamask e importa la clave privada de la cuenta.
-  4. Finalmente, cuando establezcas la conexión desde Remix, situate en Injected Web3 para establecer una conexión con Metamask, y obviamente Metamask va a ofrecer el saldo que este presente en Ganache.
+* Para seguir usando Chrome existe la posibilidad de enlazar la cuenta de Ganache con Metamask y hacer una conexión de Remix con Metamask y la conexión será exitosa. (Lo veremos a continuación).
+
+&nbsp;
+
+**Importar una Wallet de Ganache a Metamask**
+
+En primer lugar deberemos añadir la blockchain de Ganache a Metamask. 
+
+En Metamask, vamos a Redes -> RPC Personalizada
+* Nombre de la nueva cadena: Ganache
+* Nueva dirección URL RPC: http://127.0.0.1:7545
+* Identificador de cadena: 5777
+* Nombre de la divisa: Ether
+* Símbolo de la divisa: ETH
+
+&nbsp;
+
+> NOTA: Si estamos utilizando el puerto por defecto de Ganache, no es necesario añadir la blockchain, bastará con seleccionar **localhost**
+
+&nbsp;
+
+Una vez hecho esto, seleccionamos la red *Ganache* que acabamos de crear y vamos a importar nuestra cuenta:
+1. En Ganache, mostramos la clave privada y la copiamos.
+2. En Metamask, vamos a Cuentas -> Importar cuenta
+   * Importar mediante clave privada
+   * Pegar clave privada
+
+Con esto tendríamos nuestra cuenta importada, y podemos ver el balance que tenemos, que coincidirá con el de Ganache.
