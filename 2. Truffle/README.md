@@ -21,3 +21,43 @@ Truffle es un framework de desarrollo para Ethereum. Truffle provee:
 Para instalar Truffle ejecutaremos `npm install truffle -g`
 
 Necesitaremos además un cliente de Ethereum.
+
+---
+
+### 2.2 Creación de SmartContract para Truffle
+
+&nbsp;
+
+Crearemos un contrato simple (*hello.sol*) que simplemente enviará y recibirá información de la blockchain. En las siguientes secciones utilizaremos Truffle para desplegar e interactuar con este Smart Contract.
+
+---
+
+### 2.3 Creación de un espacio de trabajo
+
+Creamos una carpeta con el nombre deseado, en este caso *"2.3. Espacio de trabajo"*. 
+
+En un terminal, nos situamos en esa carpeta y para inicializar el proyecto de Truffle ejecutamos:
+
+`truffle init`
+
+Esto nos creará el archivo `truffle-config.js`, que sirve par configurar el coportamiento de Truffle y las carpetas:
+
+* **contracts**: carpeta que almacenará los contratos. 
+    * Contiene el contrato *Migrations.sol*
+    * Aquí moveremos el contrato *hello.sol* creado en la sección anterior.
+
+* **migrations**: contiene ficheros .js que permiten hacer despliegue de los contratos.
+    * Contiene `1_initial_migration.js` para desplegar el contrato Migrations.sol
+    * Crearemos `2_initial_truffle.js` para desplegar nuestro contrato tomando como referencia el anterior
+
+        ```javascript
+        const Hello = artifacts.require("Hello");
+
+        module.exports = function (deployer) {
+            deployer.deploy(Hello);
+        };
+        ```
+    
+* **test**: almacena los ficheros de test.
+
+>NOTA: Podemos obtener ayuda de Truffle con `truffle help`
