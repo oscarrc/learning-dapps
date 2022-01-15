@@ -203,3 +203,28 @@ Podemos consultar el resto de opciones en el [Repo Github de Ganache-CLI](https:
 &nbsp;
 
 ### 1.2. Primer proyecto con Solidity y Ganache
+
+Desarrollo de un sistema de evaluaciones dónde un profesor puede evaluar a sus alumnos publicando las notas de la blockchain.
+
+Consideraciones:
+* Los datos privados han de permanecer privados
+* Los profesores interactuarán con el SmartContract para publicar las notas
+* Los alumnos podrán interactuar con el smart contract para solicitar revisiones de examen.
+ 
+*Ejemplo de notas*
+| Alumno | Id | Nota |
+| -- | -- | -- |
+| Marcos | 77755N | 5 |
+| Joan | 12345K | 9 |
+| Maria | 02468T | 7 |
+| Marta | 13579U | 3 |
+| Alba | 98765Z | 6 |
+
+&nbsp;
+
+**Despliegue en Ganache**
+
+1. Creación de un workspace de Ethereum.
+2. En remix, seleccionamos environment Web3 Provider
+  * En Web3 provider endpoint ponemos la RPC URL de Ganache: `http://127.0.0.1:7545` o la que corresponda en cada caso.
+3. Desplegamos el contrato en Ganache
