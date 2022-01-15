@@ -43,7 +43,7 @@ En un terminal, nos situamos en esa carpeta y para inicializar el proyecto de Tr
 Esto nos creará el archivo `truffle-config.js`, que sirve par configurar el coportamiento de Truffle y las carpetas:
 
 * **contracts**: carpeta que almacenará los contratos. 
-    * Contiene el contrato *Migrations.sol*
+    * Contiene el contrato *Migrations.sol*, controla el despliegue de los contratos.
     * Aquí moveremos el contrato *hello.sol* creado en la sección anterior.
 
 * **migrations**: contiene ficheros .js que permiten hacer despliegue de los contratos.
@@ -61,3 +61,30 @@ Esto nos creará el archivo `truffle-config.js`, que sirve par configurar el cop
 * **test**: almacena los ficheros de test.
 
 >NOTA: Podemos obtener ayuda de Truffle con `truffle help`
+
+---
+
+### 2.4 Enlazar Truffle con Ganache.
+
+En el archivo de configuración `truffle-config.js` localizaremos la sección **networks**, descomentaremos el objeto **development** y ajustaremos sus valores a los valores en Ganache:
+
+```javascript
+networks: {
+    development: {
+        host: "127.0.0.1",     // Localhost (default: none)
+        port: 7545,            // Standard Ethereum port (default: none)
+        network_id: "*",       // Any network (default: none)
+    },
+```
+
+En este archivo de configuración también deberemos tener en cuenta la versión del compilador compatible con nuestro contrato:
+
+```javascript
+    compilers: {
+        solc: {
+        version: "0.8.11",
+        }
+    },
+```
+
+
