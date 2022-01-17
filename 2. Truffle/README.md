@@ -93,6 +93,7 @@ En este archivo de configuración también deberemos tener en cuenta la versión
 
 &nbsp;
 
+* `init`: Inicializa un proyecto de Truffle ene el directorio seleccionadao.
 * `compile`: Compila los contratos de Truffle. Genera la carpeta `build/contracts`
 * `migrate`: Realiza las migraciones de los contratos (los despliega) existentes en la carpeta `migrations`.
 
