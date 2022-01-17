@@ -219,3 +219,19 @@ En este archivo de configuración también deberemos tener en cuenta la versión
 > NOTA: Siempre es necesario pasar una dirección a las llamadas de funciones del contrato
 
 > NOTA: Utilizamos `.call({from: <account>})` para realizar llamadas a funciones `view` del contrato.
+
+&nbsp;
+
+**Web3.js**
+
+&nbsp;
+
+Web3.js es una librería Javascript para comunicarnos con Smart Contracts en la red Ethereum. 
+Provee una interfaz sencilla para interactuar con dichos contratos, en lugar de tener que escribir JsonRPC.
+
+[Documentación Web3.js](https://web3js.readthedocs.io/)
+
+Instalaremos Web3.js con el siguiente comando:
+`npm install web3`
+
+&nbsp;
