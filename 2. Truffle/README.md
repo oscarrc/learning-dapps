@@ -22,19 +22,18 @@ Para instalar Truffle ejecutaremos `npm install truffle -g`
 
 Necesitaremos además un cliente de Ethereum.
 
----
-
-### 2.2 Creación de SmartContract para Truffle
-
 &nbsp;
+
+**Creación de SmartContract para Truffle**
 
 Crearemos un contrato simple (*hello.sol*) que simplemente enviará y recibirá información de la blockchain. En las siguientes secciones utilizaremos Truffle para desplegar e interactuar con este Smart Contract.
 
----
+&nbsp;
 
-### 2.3 Creación de un espacio de trabajo
+**Creación de un espacio de trabajo**
 
-Creamos una carpeta con el nombre deseado, en este caso *"2.3. Espacio de trabajo"*. 
+
+Creamos una carpeta con el nombre deseado, en este caso *"2.1. Primeros pasos en Truffle"*. 
 
 En un terminal, nos situamos en esa carpeta y para inicializar el proyecto de Truffle ejecutamos:
 
@@ -60,9 +59,9 @@ Esto nos creará el archivo `truffle-config.js`, que sirve par configurar el cop
     
 * **test**: almacena los ficheros de test.
 
----
+&nbsp;
 
-### 2.4 Enlazar Truffle con Ganache.
+**Enlazar Truffle con Ganache**
 
 En el archivo de configuración `truffle-config.js` localizaremos la sección **networks**, descomentaremos el objeto **development** y ajustaremos sus valores a los valores en Ganache:
 
@@ -85,11 +84,9 @@ En este archivo de configuración también deberemos tener en cuenta la versión
     },
 ```
 
----
-
 &nbsp;
 
-### 2.5 Comandos básicos de Truffle
+**Comandos básicos de Truffle**
 
 &nbsp;
 
