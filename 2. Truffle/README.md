@@ -84,9 +84,6 @@ En este archivo de configuración también deberemos tener en cuenta la versión
     },
 ```
 
-&nbsp;
-
-**Comandos básicos de Truffle**
 
 &nbsp;
 
@@ -160,3 +157,65 @@ En este archivo de configuración también deberemos tener en cuenta la versión
 * `deploy`: Es un alias de `migrate`
 * `console`: Consola interactiva para intractuar con los Smart Contracts
 * `help`: Muestra la ayuda de Truffle
+
+&nbsp;
+
+**Creación de tests para un Smart Contract**
+
+&nbsp;
+
+* Crear los ficheros de tests en la carpeta `test` del espacio de trabajo Truffle. En este caso `test.js`
+* Requerimos el contrato a testear con 
+  
+    ```javascript
+        const Hello = artifacts.require("Hello");
+    ```
+* Utilizamos la función contract, la cual tiene una función callback que recibe cuentas cómo parámetro. Dentro del callback de esta función codificaremos los tests
+  
+    ```javascript
+        contract("Hello", (accounts) => {
+            // código tests
+        })
+    ```
+* Definimos los tests con el método `it`. Recibe la descripción del test y una función callback asíncrona en que se realizan las aserciones:
+
+    ```javascript
+        it("Obtiene el mensaje", async () => {
+            // Despliegue del contrato
+            const hello = await Hello.deployed();
+
+            // Obtenemos el mensaje llamando a la función getMessage desde la cuenta 0
+            const message = await hello.getMessage.call({from: accounts[0]}); 
+
+            // Comprobamos que el mensaje sea el esperado
+            assert.equal(message, "Hello world");
+        });
+    ```
+
+* Ejecutamos los tests y comprobamos que han pasado:
+
+    ```bash
+        $> truffle test
+
+        Compiling your contracts...
+        ===========================
+        ✔ Fetching solc version list from solc-bin. Attempt #1
+        ✔ Downloading compiler. Attempt #1.
+        > Compiling ./contracts/Migrations.sol
+        > Compiling ./contracts/hello.sol
+        > Artifacts written to /tmp/test--414-ZaahUwdxHVdE
+        > Compiled successfully using:
+        - solc: 0.8.11+commit.d7f03943.Emscripten.clang
+
+        Contract: Hello
+            ✓ Obtiene el mensaje (1296ms)
+            ✓ Cambia el mensaje (11757ms)
+
+        2 passing (14s)
+    ```
+
+&nbsp;
+
+> NOTA: Siempre es necesario pasar una dirección a las llamadas de funciones del contrato
+
+> NOTA: Utilizamos `.call({from: <account>})` para realizar llamadas a funciones `view` del contrato.
