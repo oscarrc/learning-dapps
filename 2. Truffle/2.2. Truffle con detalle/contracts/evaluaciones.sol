@@ -15,7 +15,7 @@ contract Evaluaciones {
     mapping(bytes32 => uint) Notas;
 
     //Array de strings (ID alumno) que solicitan revisión de examen
-    string [] Revisiones;
+    mapping(string => string []) Revisiones;
 
     //Evento alumno evaluado. Devuelve el hash del alumno
     event alumno_evaluado(bytes32);
@@ -36,38 +36,38 @@ contract Evaluaciones {
     }
 
     //Función para evaluar a un alumno
-    function evaluar(string memory _id, uint _nota) public SoloProfesor(msg.sender){
-        //Obtenemos el hash del alumno
-        bytes32 hashAlumno = keccak256(abi.encodePacked(_id));
+    function evaluar(string memory _id, string memory _asignatura, uint _nota) public SoloProfesor(msg.sender){
+        //Obtenemos el hash del alumno y asignatura
+        bytes32 hashNota = keccak256(abi.encodePacked(_id, _asignatura));
 
         //Relacionamos el hash con la nota del alumno
-        Notas[hashAlumno] = _nota;
+        Notas[hashNota] = _nota;
 
         //Emitimos Evento
-        emit alumno_evaluado(hashAlumno);
+        emit alumno_evaluado(hashNota);
     }
 
     //Función que permite a un alumno ver su nota
-    function verNota(string memory _id) public view returns(uint){
-        //Obtenemos el hash del alumno
-        bytes32 hashAlumno = keccak256(abi.encodePacked(_id));
+    function verNota(string memory _id, string memory _asignatura) public view returns(uint){
+        //Obtenemos hash de id y asignatura
+        bytes32 hashNota = keccak256(abi.encodePacked(_id, _asignatura));
 
         //Devolvemos su nota del mapping Notas
-        return Notas[hashAlumno];
+        return Notas[hashNota];
     }
 
     // Función para solicitar revisión de nota
-    function solicitarRevision(string memory _id) public{
+    function solicitarRevision(string memory _id, string memory _asignatura) public{
         //Añadimos el id del alumno al array de revisiones
-        Revisiones.push(_id);
+        Revisiones[_asignatura].push(_id);
 
         //Lanzamos la notificacion
         emit revision_solicitada(_id);
     }
 
-    //Función que permite al profesor ver las revisiones solicitadas. Devuelve un array de strings
-    function verSolicitudesRevision() public view SoloProfesor(msg.sender) returns(string [] memory){
+    //Función que permite al profesor ver las revisiones solicitadas para una asignatura. Devuelve un array de strings
+    function verSolicitudesRevision(string memory _asignatura) public view SoloProfesor(msg.sender) returns(string [] memory){
         //Devolvemos el array de revisiones solicitadas
-        return Revisiones;
+        return Revisiones[_asignatura];
     }
 }

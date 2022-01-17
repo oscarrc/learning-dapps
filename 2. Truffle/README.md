@@ -323,7 +323,43 @@ Vamos a repasar como empezar un proyecto Truffle:
 &nbsp;
 
 Tal y cómo vimos en la sección anterior vamos a programar tests (fichero `test/evaluaciones.test.js`) para comprobar las siguientes funciones del Smart Contract:
-    * Solo el profesor puede evaluar
-    * Alumnos y profesor pueden ver las notas de un alumno
-    * Los alumnos pueden solicitar revisiones
-    * Solo el profesor puede ver las solicitudes de revisión
+* Solo el profesor puede evaluar
+* Alumnos y profesor pueden ver las notas de un alumno
+* Los alumnos pueden solicitar revisiones
+* Solo el profesor puede ver las solicitudes de revisión
+
+&nbsp;
+
+```bash
+    truffle(development)> test
+    Using network 'development'.
+
+
+    Compiling your contracts...
+    ===========================
+    > Everything is up to date, there is nothing to compile.
+
+
+
+    Contract: Evaluaciones
+        ✓ Solo el profesor puede evaluar (13033ms)
+        ✓ Alumnos y profesor pueden ver las notas de un alumno (3636ms)
+        ✓ Los alumnos pueden solicitar revisiones (3672ms)
+        ✓ Solo el profesor puede ver solicitudes de revision (479ms)
+
+
+    4 passing (23s)
+```
+
+&nbsp;
+
+**Añadiendo nuevas funcionalidades y tests**
+
+&nbsp;
+
+Las notas irán enlazadas a una asignatura en concreto 
+* Añadimos el nombre asignatura al hash del alumno
+* Cambiamos el array de revisiones y la función solicitar revisión por un mapping que relacione la asignatura con un array de strings que serán los ids de los alumnos
+* Cambiamos la función para ver revisiones añadiendo el nombre de asignatura cómo parámetro
+
+Tras hacer esto será necesario adaptar los tests a esta nueva funcionalidad.
