@@ -315,3 +315,15 @@ Vamos a repasar como empezar un proyecto Truffle:
 5. Compilar contrato con `truffle compile`
     * Durante el desarrollo, debemos recompilar el contrato para reflejar los cambios en el mismo
 6. Migrar (desplegar) contrato con `truffle migrate`
+
+&nbsp;
+
+**Creación de tests**
+
+&nbsp;
+
+Tal y cómo vimos en la sección anterior vamos a programar tests (fichero `test/evaluaciones.test.js`) para comprobar las siguientes funciones del Smart Contract:
+    * Solo el profesor puede evaluar
+    * Alumnos y profesor pueden ver las notas de un alumno
+    * Los alumnos pueden solicitar revisiones
+    * Solo el profesor puede ver las solicitudes de revisión
