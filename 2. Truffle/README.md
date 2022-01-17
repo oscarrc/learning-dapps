@@ -216,7 +216,7 @@ En este archivo de configuración también deberemos tener en cuenta la versión
 
 &nbsp;
 
-> NOTA: Siempre es necesario pasar una dirección a las llamadas de funciones del contrato
+> NOTA: Es necesario pasar una dirección a las llamadas de funciones del contrato si queremos realizarla desde una dirección distinta a la dirección 0 (por defecto).
 
 > NOTA: Utilizamos `.call({from: <account>})` para realizar llamadas a funciones `view` del contrato.
 
@@ -234,4 +234,55 @@ Provee una interfaz sencilla para interactuar con dichos contratos, en lugar de 
 Instalaremos Web3.js con el siguiente comando:
 `npm install web3`
 
+Algunas de las funciones que provee web3 son:
+* `web3.eth.getAccounts()` - Devuelve un array de strings con las direcciones de las cuentas
+* `web3.eth.getGasPrice([callback])` - Devuelve un entero con el precio del gas en Weis
+* `web3.eth.getBalance([account])` - Develve un entero con el balance de la cuenta en Weis
+* `web3.eth.getBlock([block])` - Devuelve información del bloque indicado mediante su índice o su hash
+
 &nbsp;
+
+**Truffle console**
+
+&nbsp;
+
+Truffle console permite interactuar con Smart Contracts de manera interactiva en la terminal, utilizando Javascript y los comandos de Truffle. Para ello, previamente debemos haber compilado y migrado el contrato con que queremos interactuar.
+
+* Instanciación del contrato
+    ```bash
+        $> truffle console
+        truffle(development)> migrate
+        truffle(development)> let instance = Hello.deployed();
+    ```
+
+> NOTA: Puede aparecer el error *Uncaught ReferenceError: global is not defined* lo solucionamos estableciendo `global = this`.
+
+* Obtención de cuentas
+
+    ```bash
+        truffle(development)> let accounts = await web3.eth.getAccounts();
+        truffle(development)> accounts
+            [
+                '0x2f24D49D28436B8499D5F37f7dE3130F8241C0B0',
+                '0x2c12271169341f075c4883550D5e584cCcC6D935',
+                '0x4E30FDeb52dB905eAeBF2209B6ed91F2D16229d6',
+                '0xE78dc63757d548C323F0ce419B3e6f5f16679d76',
+                '0xeE4F3DEC8E4C1ADF58a0b1F0D399ad15faE15ED5',
+                '0xB2BB4d2383F30f5a62916f6D7E50E79F05C958dD',
+                '0x2D1EEF06AE391BC7aa877Cc963a83B66a171B0cd',
+                '0xc4aeA460325ad6258666079DB0211fA311353f35',
+                '0xAef7341D34835705904E0bfE267835862f65746F',
+                '0x228b1CfCAD54Ff2639AcAA8198Fc8Ea121fD3747'
+            ]
+    ```
+* Ejecución de funciones
+
+    ```bash
+      truffle(development)> let message = await instance.getMessage();
+      truffle(development)> message
+        'Hello world'
+      truffle(development)> let tx = await instance.setMessage("HI WORLD", { from: accounts[1] });
+      truffle(development)> message = await instance.getMessage();
+      truffle(development)> message
+        'HI WORLD'
+    ```  
