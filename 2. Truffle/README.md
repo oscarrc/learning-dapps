@@ -158,6 +158,8 @@ En este archivo de configuración también deberemos tener en cuenta la versión
 * `console`: Consola interactiva para intractuar con los Smart Contracts
 * `help`: Muestra la ayuda de Truffle
 
+> NOTA: el modificador `--network <network-name>` nos permite escoger una red, definida en la configuración, sobre la cual realizar las operaciones
+
 &nbsp;
 
 **Creación de tests para un Smart Contract**
@@ -286,3 +288,30 @@ Truffle console permite interactuar con Smart Contracts de manera interactiva en
       truffle(development)> message
         'HI WORLD'
     ```  
+---
+
+&nbsp;
+
+### 2.2 Truffle con detalle
+
+&nbsp;
+
+**Creación del directorio del proyecto**
+
+Vamos a repasar como empezar un proyecto Truffle:
+
+1. Inicialización del proyecto
+
+    ```bash
+        $> mkdir "2.2. Truffle con detalle"
+        $> truffle init
+    ```
+
+2. Editar configuración de Truffle:
+    * Establecer configuración de red
+    * Comprobar / establecer versión del compilador
+3. Colocar los contratos en la carpeta `contracts`. Vamos a utilizar el contrato `evaluaciones.sol` del punto 1.2. 
+4. Escribir *migrations* para el nuevo contrato
+5. Compilar contrato con `truffle compile`
+    * Durante el desarrollo, debemos recompilar el contrato para reflejar los cambios en el mismo
+6. Migrar (desplegar) contrato con `truffle migrate`
