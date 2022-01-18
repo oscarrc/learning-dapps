@@ -55,3 +55,9 @@ Para evitar esto se crearon los oráculos descentralizados que obtinene informac
 [Augur](https://augur.net/) es una plataforma de mercado de predicción descentralizada.
 
 [ChainLink](https://chain.link/) es un servicio de oráculo descentralizado para conectar smart contracts con el mundo real ofreciendo recompensas e incentivos a los participantes en la red.
+
+---
+
+&nbsp;
+
+### 3.2. Cración de oráculo para Smart Contracts
