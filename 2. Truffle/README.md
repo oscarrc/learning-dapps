@@ -47,7 +47,7 @@ Esto nos creará el archivo `truffle-config.js`, que sirve par configurar el cop
 
 * **migrations**: contiene ficheros .js que permiten hacer despliegue de los contratos.
     * Contiene `1_initial_migration.js` para desplegar el contrato Migrations.sol
-    * Crearemos `2_initial_truffle.js` para desplegar nuestro contrato tomando como referencia el anterior
+    * Crearemos `2_initial_hello.js` para desplegar nuestro contrato tomando como referencia el anterior
 
         ```javascript
         const Hello = artifacts.require("Hello");
