@@ -30,7 +30,7 @@ const listenEvent = (lastBlock) => {
     // Escuchamos el evento __callbackNewData y ejecutamos la función para actualizar datos
     contractInstance.events.__callbackNewData({}, {
         fromBlock: lastBlock,
-        toBlock: "latest"
+        // toBlock: "latest" -> Explicado en el curso, pero la opción sólo es valida en getPastEvents
     }, 
     (error, event) => {
         if(error){ 
@@ -40,19 +40,6 @@ const listenEvent = (lastBlock) => {
         
         updateData();
     })
-
-    // contractInstance.getPastEvents("__callbackNewData", {
-    //     fromBlock: lastBlock,
-    //     toBlock: "latest"
-    // }, 
-    // (error, event) => {
-    //     if(error){ 
-    //         console.log(error)
-    //         return;
-    //     }
-        
-    //     updateData();
-    // })
 }
 
 // Función que actualiza los datos
@@ -66,7 +53,8 @@ const updateData = () => {
     // Obtenemos los datos de la api y los convertimos a JSON
     fetch(url)
         .then(res => res.json())
-        .then(json => setContractData(json.element_count));    
+        .then(json => setContractData(json.element_count))
+        .catch(err => console.log(err));
 }
 
 // Pasamos los datos al contrato mediante una transacción firmada con la clave privada
