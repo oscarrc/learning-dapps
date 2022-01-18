@@ -44,6 +44,9 @@ Esto nos creará el archivo `truffle-config.js`, que sirve par configurar el cop
 * **contracts**: carpeta que almacenará los contratos. 
     * Contiene el contrato *Migrations.sol*, controla el despliegue de los contratos.
     * Aquí moveremos el contrato *hello.sol* creado en la sección anterior.
+    * Podemos crear contratos con:
+        
+        `truffle create contract YourContractName`
 
 * **migrations**: contiene ficheros .js que permiten hacer despliegue de los contratos.
     * Contiene `1_initial_migration.js` para desplegar el contrato Migrations.sol
@@ -58,6 +61,9 @@ Esto nos creará el archivo `truffle-config.js`, que sirve par configurar el cop
         ```
     
 * **test**: almacena los ficheros de test.
+  * Podemos crear tests con:
+
+    `truffle create test YourTestName`
 
 &nbsp;
 
