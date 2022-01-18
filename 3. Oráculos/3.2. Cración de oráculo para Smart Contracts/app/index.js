@@ -59,9 +59,9 @@ const updateData = () => {
 
 // Pasamos los datos al contrato mediante una transacción firmada con la clave privada
 const setContractData = (data) => {
-    // Obtenemos la transacción
+    // Obtenemos el índice de la transacción
     web3.eth.getTransactionCount(address, (err, txNum) => {
-        // Llamamos a la función para cambiar el número de asteroides
+        // Llamamos a la función para cambiar el número de asteroides y estimamos el gas necesario
         contractInstance.methods.setNumAsteroids(data).estimateGas({}, (err, gasAmount) => {
             // Datos de la transacción
             const rawTx = {
@@ -69,8 +69,8 @@ const setContractData = (data) => {
                 gasPrice: web3.utils.toHex(web3.utils.toWei("1.4", "gwei")), // Pasamos el precio de gas
                 gasLimit: web3.utils.toHex(gasAmount), // Límite de gas
                 to: contractAddress, // Enviamos a la dirección del contrato
-                value: '0x00', // Valor de la transaccion en este caso 0
-                data:  contractInstance.methods.setNumAsteroids(data).encodeABI() // Datos a enviar
+                value: '0x00', // Valor de la transaccion en Wei, en este caso 0
+                data:  contractInstance.methods.setNumAsteroids(data).encodeABI() // Llamada a la función
             }
 
             // Creamos la transacción
