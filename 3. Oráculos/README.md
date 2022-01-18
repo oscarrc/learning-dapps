@@ -103,18 +103,53 @@ A continuación instalamos las siguientes dependencias con `npm install`:
 Creamos el archivo `index.js` y comenzamos a programar el oráculo.
 
 El flujo general sería:
-1. Instanciamos el contrato
-   `web3.eth.contract(contractJSON.abi, addressContract);`
+1. Instanciamos web3 y el contrato
+   ```javascript
+        const contractJSON = require('../build/contracts/Oracle.json');
+        const web3 = new Web3("ws://127.0.0.1:7545");
+        const contractAddress = "0xC3e98aaE074A63e4BcFfb5a088f3994f64E78390";
+        const contractInstance = new web3.eth.Contract(contractJSON.abi, contractAddress);
+    ```
 
 2. Escuchamos el evento __calbackNewData
-   `contractInstance.events.__callbackNewData({}, { fromBlock, toBlock })`
+   ```javascript
+        web3.eth.getBlockNumber().then( n => listenEvent(n-1) );
 
-3. Obtenemos datos de la API
+        const listenEvent = (lastBlock) => {
+            contractInstance.events.__callbackNewData({}, {
+                fromBlock: lastBlock,
+            }, 
+            (error, event) => {
+                if(error){ 
+                    console.log(error)
+                    return;
+                }
+                
+                updateData();
+            })
+        }
+    ```
 
-4. Generamos la transacción y la firmamos
-   `Transaction.fromTxData(rawTx).sign(privateKey);`
+3. Obtenemos datos de la API (`updateData`) y los pasamos a la función correspondiente (`setContractData`)
 
-5. Enviamos la transacción serializada a la dirección del contrato
-   `web3.eth.sendSignedTransaction(`0x${serializedTx}`);`
+4. Enviamos la transacción:
+    * Generamos la transacción y la firmamos
+        ```javascript
+            const rawTx = {
+                nonce: web3.utils.toHex(txNum), // Obtenemos el nonce
+                gasPrice: web3.utils.toHex(web3.utils.toWei("1.4", "gwei")), // Pasamos el precio de gas
+                gasLimit: web3.utils.toHex(gasAmount), // Límite de gas
+                to: contractAddress, // Enviamos a la dirección del contrato
+                value: '0x00', // Valor de la transaccion en este caso 0
+                data:  contractInstance.methods.setNumAsteroids(data).encodeABI() // Datos a enviar
+            }
+            let tx = (Transaction.fromTxData(rawTx)).sign(privateKey);
+        ```
 
-Finalmente iniciamos el proyecto con `npm start`.
+    * Enviamos la transacción serializada a la dirección del contrato
+        ```javascript
+            const serializedTx = tx.serialize().toString('hex');
+            web3.eth.sendSignedTransaction(`0x${serializedTx}`);`
+        ```
+
+Finalmente iniciamos el proyecto con `npm start` y comprobamos que al ejecutar `update` se actualize *numAsteroids* en el contrato.

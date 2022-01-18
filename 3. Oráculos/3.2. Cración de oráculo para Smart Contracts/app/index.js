@@ -25,7 +25,7 @@ const privateKey = Buffer.from("a887fc277c558b9f7684d4ae45325669ebecb2f0be93bb86
 // Escuchamos evento para obtener el número de bloque
 web3.eth.getBlockNumber().then( n => listenEvent(n-1) )
 
-// Función que escucha el evento __callbackNewData
+// Función que escucha el evento __callbackNewData a partir del último bloque
 const listenEvent = (lastBlock) => {
     // Escuchamos el evento __callbackNewData y ejecutamos la función para actualizar datos
     contractInstance.events.__callbackNewData({}, {
