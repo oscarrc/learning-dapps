@@ -61,3 +61,60 @@ Para evitar esto se crearon los oráculos descentralizados que obtinene informac
 &nbsp;
 
 ### 3.2. Cración de oráculo para Smart Contracts
+
+&nbsp;
+
+Realización de un oráculo para enlazar la [API de la NASA](https://api.nasa.gov/) con un smart contract.
+Utilizaremos la api Asteroids NeoWS para recopilar información acerca de los asteroides caidos a la tierra.
+
+El endpoint que estaremos utilizando es:
+
+`GET https://api.nasa.gov/neo/rest/v1/feed?start_date=START_DATE&end_date=END_DATE&api_key=API_KEY`
+
+&nbsp;
+
+**Programación del Smart Contract**
+
+Creamos un nuevo workspace en Ganache para el proyecto y a continuación:
+
+1. Inicialización del proyecto Truffle. `truffle init`
+2. Creamos el contrato con `truffle create contract oracle`
+3. Variables y funciones
+   * Variables para almacenar el owner del contrato y el número de asteroides
+   * Funciones para actualizar el número de asteroides con información del oráculo y otra para hacerlo manualmente
+   * Evento a emitir para recibir información del oráculo
+   * Modificador onlyOwner
+4. Compilación y migración del contrato: `truffle migrate`
+
+El contrato recibirá datos del oráculo para ello haremos uso del evento `__callbackNewData();`.
+
+&nbsp;
+
+**Desarrollo del oráculo con Javascript**
+
+Creamos el directorio `app` no situamos en él e inicializamos el proyecto con `npm init`.
+    * En la seccion scripts, definimos el script "*start*" cómo `node --experimental-json-modules index.js`
+
+A continuación instalamos las siguientes dependencias con `npm install`:
+* web3
+* @ethereumjs/tx
+* node-fetch
+
+Creamos el archivo `index.js` y comenzamos a programar el oráculo.
+
+El flujo general sería:
+1. Instanciamos el contrato
+   `web3.eth.contract(contractJSON.abi, addressContract);`
+
+2. Escuchamos el evento __calbackNewData
+   `contractInstance.events.__callbackNewData({}, { fromBlock, toBlock })`
+
+3. Obtenemos datos de la API
+
+4. Generamos la transacción y la firmamos
+   `Transaction.fromTxData(rawTx).sign(privateKey);`
+
+5. Enviamos la transacción serializada a la dirección del contrato
+   `web3.eth.sendSignedTransaction(`0x${serializedTx}`);`
+
+Finalmente iniciamos el proyecto con `npm start`.
