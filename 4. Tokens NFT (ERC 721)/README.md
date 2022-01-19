@@ -326,8 +326,42 @@ Esta estructura, garantiza además, que la DApp tenga una disponibilidad muy alt
     
     ```bash
     cd dapp-nft
-    npm install bootstrap react-bootstrap truffle web3
+    npm install --save bootstrap react-bootstrap truffle web3
     ``` 
 
-3. Editamos la cofiguración de truffle `truffle-config.js`:
+3. Inicializamos Truffle
+
+  `truffle init`
+
+4. Editamos la configuración de Truffle:
+
+  ```json
+  {  
+    contracts_directory: './truffle/contracts/',
+    contracts_build_directory: './truffle/build/',
+    migrations_directory: './truffle/migrations/',
+    test_directory: './truffle/test/',
+    networks: {
+      development: {
+      host: "127.0.0.1",
+      port: 8545,
+      network_id: "*",
+      },
+    },
+    mocha: {},
+    compilers: {
+      solc: {
+        version: "0.8.11",
+        settings: {   
+        optimizer: {
+          enabled: false,
+          runs: 200
+        },
+        }
+      }
+    }
+  }
+```
+
+5. Movemos la carpeta contracts a `src/contracts`
    
