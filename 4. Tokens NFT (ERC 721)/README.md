@@ -83,7 +83,7 @@ En lugar de programar línea a línea un token ERC-721 completo, podemos utilzar
 
 **Las interfaces de ERC-165 y ERC-721**
 
-Los tokens ERC-721 heredan de ERC-165. La interfaz IERC165 (*@openzeppelin/contracts/introspection/IERC165.sol*) define la función `supportsInterface` que devuelve un booleano en caso de que implemente correctamente la interfaz pasada cómo parámetro.
+Los tokens [ERC-721](https://eips.ethereum.org/EIPS/eip-721) heredan de [ERC-165](https://eips.ethereum.org/EIPS/eip-165). La interfaz IERC165 (*@openzeppelin/contracts/introspection/IERC165.sol*) define la función `supportsInterface` que devuelve un booleano en caso de que implemente correctamente la interfaz pasada cómo parámetro.
 
 Por su parte, la interfaz IERC721 (*@openzeppelin/contracts/token/ERC721/IERC721.sol*) define los eventos eventos y métodos que debe implementar el token:
 * Eventos:
@@ -126,3 +126,133 @@ La librería `Counters` (*@openzeppelin/contracts/drafts/Counters.sol*) provee c
 * `increment`: Incrementa el contador pasado cómo parámetro
 * `decrement`: Decrementa el contador pasado cómo parámetro
 
+&nbsp;
+
+**Smart Contract ERC-165**
+
+Este contrato contará con una constante que identifica la interfaz:
+* `bytes4 private constant _INTERFACE_ID_ERC165 = 0x01ffc9a7;`
+
+Las interfaces soportadas se guardan en un mapping:
+* `mapping(bytes4 => bool) private _supportedInterfaces;`
+
+En el constructor del contrato, que será *internal*, añadiremos la interfaz actual al mapping, mediante una llamada a la función register interface:
+* `registerInterface(_INTERFACE_ID_ERC165);`
+
+Contará también con la función `supportsInterface` que devuelve un booleano resultado de buscar en el mapping la interface pasada cómo parámetro.
+
+El resultado de `bytes4(keccak256('supportsInterface(bytes4)'))` será igual al Id de la interfaz.
+
+&nbsp;
+
+**Smart Contract ERC-721**
+
+Un token ERC-721 implementa las interfaces `IERC165` e `IERC721`.
+
+Dfiniremos también el identificador `bytes4 private constant _ERC721_RECEIVED` cómo:
+
+`bytes4(keccak256('onERC721Received(address,uint256,bytes)'))`
+
+o bien 
+
+`IERC721Receiver(0).onERC721Received.selecto`
+
+También utilizaremos el `bytes4 private constant _INTERFACE_ID_ERC721` para identificar la interfaz, obtenido mediante combinación binaria de:
+
+```
+    bytes4(keccak256('balanceOf(address)')) == 0x70a08231
+    bytes4(keccak256('ownerOf(uint256)')) == 0x6352211e
+    bytes4(keccak256('approve(address,uint256)')) == 0x095ea7b3
+    bytes4(keccak256('getApproved(uint256)')) == 0x081812fc
+    bytes4(keccak256('setApprovalForAll(address,bool)')) == 0xa22cb465
+    bytes4(keccak256('isApprovedForAll(address,address)')) == 0xe985e9c
+    bytes4(keccak256('transferFrom(address,address,uint256)')) == 0x23b872dd
+    bytes4(keccak256('safeTransferFrom(address,address,uint256)')) == 0x42842e0e
+    bytes4(keccak256('safeTransferFrom(address,address,uint256,bytes)')) == 0xb88d4fde
+```
+
+Para posteriormente registrarlo en el constructor con el método `_registerInterface`;
+
+Para almecenar información, utilizaremos los siguientes mapeos:
+* `mapping (uint256 => address) private _tokenOwner;` - tokenId con propietario del token
+* `mapping (uint256 => address) private _tokenApprovals;` - tokenId con direcciones aprovadas
+* `mapping (address => Counters.Counter) private _ownedTokensCount;` - Propietario con número de tokens
+* `mapping (address => mapping (address => bool)) private _operatorApprovals;` - Direcciones de propietario a mapping de operadores aprobados.
+
+Además de ésto, implementaremos las funciones definidas en las interfaces. Además de los siguientes métodos internos:
+* `_exists` - Devuelve un booleano si el token existe
+* `_isApprovedOrOwner` - comprueba si la dirección pasada como parámetro es el propietario o está aprobado
+* `_mint` - Mintea un token
+  * El token no debe existir
+  * La dirección to debe ser distinta de 0
+  * Establecemos el token owner a to
+  * Incrementamos el conteo de tokens del owner
+  * Emitimos evento transfer
+* `_burn` - Quema un token
+  * El token debe pertenecer a la dirección
+  * Llamamos a _clearApproval
+  * Decrementamos el conteo de tokens del owner
+  * Establecemos el token owner a la dirección 0
+  * Emitimos evento transfer
+* `_transferFrom` - Transfiere la propiedad de un token
+  * Limpiamos la aprovacion con `_clearAproval`
+  * Decrementamos el token count del from
+  * Aumentamos el token count del to
+  * Asignamos la propiedad del token al to
+  * Emitmios el evento transfer
+* `_checkOnERC721Received` - Deprecada. Invoca `onERC721Received` en la dirección de destino  
+* `_clearApproval` - elimina una aprovación para un token. Asigna aprovación a la dirección 0
+
+>NOTA: Hay que tener en cuenta que el owner del NFT será siempre el que lo mintee. El resto de transferencias se realizarán mediante cuentas aprobadas con el método `approve`.
+
+&nbsp;
+
+**Smart Contract ERC-721 Enumerable**
+
+El token ERC-721 Enumerable es un token que cuenta con un totalSupply. Requiere las siguientes funciones:
+* `totalSupply` - Cantidad total de tokens
+* `tokenOfOwnerByIndex` - Token de un propietario por índice
+* `tokenByIndex` - Token por índice
+
+Y los siguientes array y mappigns:
+* `_allTokens` - Array que contiene los tokenIds
+* `_ownedTokens` - Mapping que elaciona propietario con tokens que posee
+* `_ownedTokensIndex` - Mapping que a partir del token id devuelve el ínidice en la lista de tokens del propietario
+* `_allTokensIndex` - Mapping que relaciona el tokenId con la posición del token en la lista de tokens `_allTokens`
+
+&nbsp;
+
+**Reescritura de métodos de la superclase**
+
+Podemos invocar un método de la superclase con `super._methodName(...)` para ejecutar un método del contrato padre.
+
+&nbsp;
+
+**Metadatos del token ERC-721**
+
+`IERC721Metadata is IERC721` y cuenta con las siguientes funciones getters:
+* `name` - Devuelve el nombre del token
+* `symbol` - Devuelve el simbolo del token
+* `tokenURI` - Devuelve la URI del token pasado cómo parámetro
+
+En el contrato ERC721Metadata definiremos:
+* Variables
+  * _name
+  * _symbol
+* Mappings
+  * _tokenURIs: relaciona tokenId con su URI
+
+Además definiremos las siguientes funciones internas:
+    * `_setTokenURI` - Establece la URI de un token
+    * `_burn` - Quema un token
+
+**Creación de token completo**
+Visto lo anterior, un token ERC-721 completo quedaría tal que así:
+
+```solidity
+    contract ERC721Full is ERC721, ERC721Enumerable, ERC721Metadata {
+        constructor (string memory name, string memory symbol) public ERC721Metadata(name, symbol) {
+            
+        }
+    }
+```
