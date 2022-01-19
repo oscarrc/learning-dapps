@@ -327,6 +327,7 @@ Esta estructura, garantiza además, que la DApp tenga una disponibilidad muy alt
     ```bash
     cd dapp-nft
     npm install --save bootstrap react-bootstrap truffle web3
+    npm install --save-dev chai chai-as-promised chai-bignumber @openzeppelin/contracts
     ``` 
 
 3. Inicializamos Truffle
@@ -340,7 +341,6 @@ Esta estructura, garantiza además, que la DApp tenga una disponibilidad muy alt
     contracts_directory: './src/truffle/contracts/',
     contracts_build_directory: './src/truffle/build/',
     migrations_directory: './src/truffle/migrations/',
-    test_directory: './src/truffle/test/',
     networks: {
       development: {
       host: "127.0.0.1",
