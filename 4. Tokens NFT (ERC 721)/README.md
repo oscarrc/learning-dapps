@@ -246,7 +246,10 @@ Además definiremos las siguientes funciones internas:
     * `_setTokenURI` - Establece la URI de un token
     * `_burn` - Quema un token
 
+&nbsp;
+
 **Creación de token completo**
+
 Visto lo anterior, un token ERC-721 completo quedaría tal que así:
 
 ```solidity
