@@ -256,3 +256,10 @@ Visto lo anterior, un token ERC-721 completo quedaría tal que así:
         }
     }
 ```
+
+---
+&nbsp;
+
+### 4.3. Qué son las DAPPS
+
+&nbsp;
