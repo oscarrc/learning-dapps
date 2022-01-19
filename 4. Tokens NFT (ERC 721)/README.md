@@ -337,10 +337,10 @@ Esta estructura, garantiza además, que la DApp tenga una disponibilidad muy alt
 
   ```json
   {  
-    contracts_directory: './truffle/contracts/',
-    contracts_build_directory: './truffle/build/',
-    migrations_directory: './truffle/migrations/',
-    test_directory: './truffle/test/',
+    contracts_directory: './src/truffle/contracts/',
+    contracts_build_directory: './src/truffle/build/',
+    migrations_directory: './src/truffle/migrations/',
+    test_directory: './src/truffle/test/',
     networks: {
       development: {
       host: "127.0.0.1",
