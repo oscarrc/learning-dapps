@@ -263,6 +263,71 @@ Visto lo anterior, un token ERC-721 completo quedaría tal que así:
 ---
 &nbsp;
 
-### 4.3. Qué son las DAPPS
+### 4.3. Qué son las DApps
 
 &nbsp;
+
+Son aplicaciones cuyo funcionamiento se basa en una red decentralizada de nodos, en oposición a aquellas que se basan en servidores centralizados.
+
+| DApps | Apps Centralizadas |
+| --- | --- |
+| Se ejecuta en varios nodos sin un control central | Se ejecuta en un servidor controlado por una empresa |
+| Garantiza la transparencia e inmutabilidad de datos | No tienen por que ser transparentes y los datos están a merced de una empresa |
+| Aseguran la identidad de los usuarios | La identidad de los usuarios puede ser engañosa |
+
+&nbsp;
+
+Cada usuario es un nodo de la red, cada usuario vela por el correcto funcionamiento y las oepraciones que se realizan en dicha red.
+El canal de comunicaciones utilizado es, en este caso, blockchain. En ella quedan registradas las operaciones que pasan por el SmartContract que controla la DApp, garantizando su inmutabilidad.
+
+Esta estructura, garantiza además, que la DApp tenga una disponibilidad muy alta (es dificil que todos los nodos caigan a la vez), así cómo resistencia a la censura.
+
+&nbsp;
+
+**Características de las DApps**
+
+* **Seguridad**: Al funcionar sobre blockchain, se utilizan métodos criptográficos para asegurar la información. Solo la persona que ha creado los datos, puede acceder a ellos, el resto de usuario sólo podrán verificarlos. Esto minimiza el riesgo de filtración de datos o venta de los mismos a terceros.
+* **Descentralización**: Funciona sobre un conjunto de nodos, cada uno de los cuales realiza el rol de servidor.
+* **Código abierto**: Las DApps deben garantizar un alto nivel de transparencia, es por ello que las aplicaciones de código abierto son preferidas.
+* **Herencia blockchain**: Cada interacción con la DApp genera datos en la blockchain, que se almacenan criptográficamente y de forma inmutable.
+  
+&nbsp;
+
+**Clasificación de las DApps**
+
+* **Tipo I**: DApps que poseen su propia infraestructura, no dependen de una blockchain externa para su ejecución.
+* **Tipo II**: Dependen de una blockchain y sus características para poder funcionar, bien utilizando tokens propios o los de blockchain sobre la cual se ejecutan.
+* **Tipo III**: Utilizan aplicaciones distribuídas de tipo II para su funcionamiento. Habitualmente, utilizan los tokens de DApps tipo II para su funcionamiento.
+ 
+&nbsp;
+
+**Limitaciones de las DApps**
+
+* Dificultad para explotar el potencial de hardware de los dispositivos de los usuarios. Especialmente en aplicaciones web.
+* Complejidad de depuración y aditoría de seguridad.
+* El crecimiento y mejora de las Dapps está ligado al desarrollo, mejoras y herramientas disponibles para la blockchain.
+* Dificultad de implementación de funcionalidades necesarias para la DApp.
+
+---
+ 
+&nbsp;
+
+### 4.3. DApp con tokens nft
+
+&nbsp;
+
+**Inicialización de la App**
+
+1. Inicializamos la aplicación React:
+    
+    `npx create-react-app dapp-nft`
+
+2. Instalamos las dependencias:
+    
+    ```bash
+    cd dapp-nft
+    npm install bootstrap react-bootstrap truffle web3
+    ``` 
+
+3. Editamos la cofiguración de truffle `truffle-config.js`:
+   
