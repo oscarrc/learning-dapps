@@ -344,7 +344,7 @@ Esta estructura, garantiza además, que la DApp tenga una disponibilidad muy alt
       networks: {
         development: {
         host: "127.0.0.1",
-        port: 8545,
+        port: 7545,
         network_id: "*",
         },
       },
@@ -369,3 +369,12 @@ Esta estructura, garantiza además, que la DApp tenga una disponibilidad muy alt
 
 **Creación del Smart Contract para el coleccionable**
 
+El contrato de nuestro Smart Contract, `Color.sol`, heredará de `ERC721Enumerable` que hereda del contrato `ERC721` el cual implementa las interfaces:
+* IERC721
+* IERC721Metadata
+
+Para almacenar los colores crearemos un array de strings mientras que un mapping `string => bool` será necesario para saber si un color está ya minteado.
+
+Por último, crearemos la función mint que será la encargada de crear un nuevo token.
+
+&nbsp;
