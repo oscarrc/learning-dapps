@@ -336,32 +336,36 @@ Esta estructura, garantiza además, que la DApp tenga una disponibilidad muy alt
 
 4. Editamos la configuración de Truffle:
 
-  ```json
-  {  
-    contracts_directory: './src/truffle/contracts/',
-    contracts_build_directory: './src/truffle/build/',
-    migrations_directory: './src/truffle/migrations/',
-    networks: {
-      development: {
-      host: "127.0.0.1",
-      port: 8545,
-      network_id: "*",
-      },
-    },
-    mocha: {},
-    compilers: {
-      solc: {
-        version: "0.8.11",
-        settings: {   
-        optimizer: {
-          enabled: false,
-          runs: 200
+    ```json
+    {  
+      contracts_directory: './src/truffle/contracts/',
+      contracts_build_directory: './src/truffle/build/',
+      migrations_directory: './src/truffle/migrations/',
+      networks: {
+        development: {
+        host: "127.0.0.1",
+        port: 8545,
+        network_id: "*",
         },
+      },
+      mocha: {},
+      compilers: {
+        solc: {
+          version: "0.8.11",
+          settings: {   
+          optimizer: {
+            enabled: false,
+            runs: 200
+          },
+          }
         }
       }
     }
-  }
-```
+  ```
 
 5. Movemos la carpeta contracts a `src/contracts`
-   
+
+&nbsp;
+
+**Creación del Smart Contract para el coleccionable**
+
