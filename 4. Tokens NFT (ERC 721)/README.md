@@ -394,3 +394,19 @@ module.exports = function (deployer) {
 Ahora procedemos al despligue en Ganache, creando un nuevo espacio de trabajo *dapp-nft* y añadiendo el proyecto de Truffle.
 
 A continuación ejecutamos el comando `truffle compille` para compilar los contratos y, si todo ha ido bien, `truffle migrate` para migrarlos a la blockchain de Ganache.
+
+```
+Deploying 'Color'
+   -----------------
+   > transaction hash:    0xfeed2b5044dd274695ce7722c3afed99678ce7725c9b2815e8f93d508284e7f9
+   > Blocks: 1            Seconds: 4
+   > contract address:    0x8Db2bd44ce61282D43c063c36E4237c675F72b76
+   > block number:        3
+   > block timestamp:     1642695054
+   > account:             0x70bbB7fcF8230c10Af03Ff21067dfE264A05C525
+   > balance:             99.93690186
+   > gas used:            2863540 (0x2bb1b4)
+   > gas price:           20 gwei
+   > value sent:          0 ETH
+   > total cost:          0.0572708 ETH
+```
