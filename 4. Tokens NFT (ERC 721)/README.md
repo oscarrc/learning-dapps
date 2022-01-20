@@ -367,7 +367,7 @@ Esta estructura, garantiza además, que la DApp tenga una disponibilidad muy alt
 
 &nbsp;
 
-**Creación del Smart Contract para el coleccionable**
+****
 
 El contrato de nuestro Smart Contract, `Color.sol`, heredará de `ERC721Enumerable` que hereda del contrato `ERC721` el cual implementa las interfaces:
 * IERC721
@@ -378,3 +378,19 @@ Para almacenar los colores crearemos un array de strings mientras que un mapping
 Por último, crearemos la función mint que será la encargada de crear un nuevo token.
 
 &nbsp;
+
+**Migración del smart contract a la blockchain**
+
+Crearemos la migración de nuestro contrato en el archivo `2_initial_color.js`, replicando el código de la migración inicial, pero con el nombre de nuestro contrato en lugar de *Migrations*.
+
+```javascript
+const Color = artifacts.require("Color");
+
+module.exports = function (deployer) {
+  deployer.deploy(Color);
+};
+```
+
+Ahora procedemos al despligue en Ganache, creando un nuevo espacio de trabajo *dapp-nft* y añadiendo el proyecto de Truffle.
+
+A continuación ejecutamos el comando `truffle compille` para compilar los contratos y, si todo ha ido bien, `truffle migrate` para migrarlos a la blockchain de Ganache.
