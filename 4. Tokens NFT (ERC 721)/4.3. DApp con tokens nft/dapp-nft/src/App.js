@@ -16,13 +16,15 @@ function App() {
   useEffect(() => {
     initWeb3();
     loadBlockchainData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const initWeb3 = async () => {
     // Si tenemos ethereum disponible, inicializamos web3
     if(window.ethereum){
       window.web3 = new Web3(window.ethereum);
-      await window.ethereum.enabled();
+      // await window.ethereum.enabled(); DEPRECATED
+      await window.ethereum.request({ method: 'eth_requestAccounts' })
     // Si ya existe web3, lo inicializamos
     }else if(window.web3){
       window.web3 = new Web3(window.web3.currentProvider);
@@ -48,7 +50,7 @@ function App() {
       // Obtenemos instancia del contrato
       const abi = Color.abi;
       const address = networkData.address;
-      const contract = new web3.eth.contract(abi, address);
+      const contract = new web3.eth.Contract(abi, address);
       setContract(contract);
 
       // Obtenemos el totalSupply
@@ -67,6 +69,17 @@ function App() {
       const color = await contract.methods.colors(i).call();
       setColors([...colors, color]);
     }
+  }
+
+  // Realiza el minteo de un nuevo token
+  const mint = async (color) => {
+    // Llamamos al método mint desde la cuenta
+    contract.methods.mint(color)
+      .send({ from: account })
+      .once('receipt', (receipt) => {
+        // Una vez recibido lo añadimos al array de colores
+        setColors([...colors, color]);
+      })
   }
 
   return (

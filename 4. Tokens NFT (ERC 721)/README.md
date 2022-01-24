@@ -469,9 +469,9 @@ En primer lugar importamos las dependencias
 
 Utilizando el hook `useState` creamos el siguiente estado:
 * `[account, setAccount]` Almacena una cuenta
-* `[ contract, setContract]`Almacena el contrato
+* `[contract, setContract]`Almacena el contrato
 * `[totalSupply, setTotalSupply]` Almacena el total de tokens
-* `[ colors, setColors]` Almacena los colores de una cuenta
+* `[colors, setColors]` Almacena los colores de una cuenta
 
 A continuación las siguientes funciones asíncronas:
 * `initWeb3` para inicializar web3.
@@ -485,4 +485,19 @@ useEffect(() => {
     initWeb3();
     loadBlockchainData();
 }, []);
+```
+
+&nbsp;
+
+**Función de minting**
+Nuestra dapp necesita una función que permita al usuario mintear tokens y que, una vez minteado, lo añada a la variable de estado colors:
+
+```javascript
+const mint = async (color) => {
+    contract.methods.mint(color)
+      .send({ from: account })
+      .once('receipt', (receipt) => {
+        setColors([...colors, color]);
+      })
+  }
 ```
