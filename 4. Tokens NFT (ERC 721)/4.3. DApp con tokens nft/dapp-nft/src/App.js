@@ -1,7 +1,74 @@
-import logo from './logo.svg';
 import './App.css';
 
+import { useEffect, useState } from "react";
+
+import Color from './truffle/build/Color.json';
+import Web3 from 'web3';
+import logo from './logo.svg';
+
 function App() {
+  // Establecer estados
+  const [ account, setAccount] = useState(null);
+  const [ contract, setContract] = useState(null);
+  const [ totalSupply, setTotalSupply] = useState(0);
+  const [ colors, setColors] = useState([]);
+
+  useEffect(() => {
+    initWeb3();
+    loadBlockchainData();
+  }, []);
+
+  const initWeb3 = async () => {
+    // Si tenemos ethereum disponible, inicializamos web3
+    if(window.ethereum){
+      window.web3 = new Web3(window.ethereum);
+      await window.ethereum.enabled();
+    // Si ya existe web3, lo inicializamos
+    }else if(window.web3){
+      window.web3 = new Web3(window.web3.currentProvider);
+    }else{
+      window.alert('No se ha detectado un cliente compatible con web3.');
+    }
+  }
+
+  const loadBlockchainData = async () => {
+    const web3 = window.web3;
+
+    // Obtenemos una cuenta y la añadimos al estado
+    const accounts = await web3.eth.getAccounts();
+    setAccount(accounts[0]);
+
+    // Obtenemos el networkid
+    const networkId = await web3.eth.net.getId();
+
+    // Obtenemos los datos de la red
+    const networkData = Color.networks[networkId];
+
+    if(networkData){
+      // Obtenemos instancia del contrato
+      const abi = Color.abi;
+      const address = networkData.address;
+      const contract = new web3.eth.contract(abi, address);
+      setContract(contract);
+
+      // Obtenemos el totalSupply
+      const totalSupply = await contract.methods.totalSupply().call();
+      setTotalSupply(totalSupply);
+
+      getColors();
+    }else{
+      window.alert("Smart Contract not deployed to detected network.");
+    }
+  }
+
+  // Obtiene colores de un usuario
+  const getColors = async () => {
+    for(let i = 0; i < totalSupply; i++){
+      const color = await contract.methods.colors(i).call();
+      setColors([...colors, color]);
+    }
+  }
+
   return (
     <div>
         <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow px-4">

@@ -329,12 +329,20 @@ Esta estructura, garantiza además, que la DApp tenga una disponibilidad muy alt
     npm install --save bootstrap react-bootstrap truffle web3
     npm install --save-dev chai chai-as-promised chai-bignumber @openzeppelin/contracts
     ``` 
+3. Si utilizamos webpack versión 5 o superior:
+  * Instalamos las siguientes dependencias:
 
-3. Inicializamos Truffle
+    ```bash
+    npm install --save-dev react-app-rewired crypto-browserify stream-browserify assert stream-http https-browserify os-browserify url buffer process
+    ```
+  * Creamos un override para webpack > 5. `config-overrides.js`.
+  * Cambiamos `react-scripts` por `react-app-rewired` en el `package.json`
+
+5. Inicializamos Truffle
 
   `truffle init`
 
-4. Editamos la configuración de Truffle:
+6. Editamos la configuración de Truffle:
 
   ```json
     {  
@@ -363,7 +371,7 @@ Esta estructura, garantiza además, que la DApp tenga una disponibilidad muy alt
     }
   ```
 
-  5. Movemos la carpeta contracts a `src/contracts`
+  6. Movemos la carpeta contracts a `src/contracts`
 
 &nbsp;
 
@@ -424,3 +432,57 @@ Crearemos el fichero `test/color.test.js` e implementamos el testeo:
   * Mintea un token
 * Lista
   * Lista los tokens minteados
+
+
+&nbsp;
+
+**Añadiendo Web3 y conectando con la blockchain**
+
+En primer lugar importamos las dependencias
+
+1. Web3
+
+    ```javascript
+    import Web3 from 'web3';
+    ```
+2. ABIs del contrato
+  
+      ```javascript
+      import Color from '../../build/contracts/Color.json';
+      ```
+
+>NOTA: Webpack > 5 actualmente necesita de fallbacks para los polyfils nodejs. `webpack.config.js`:
+> ```
+>    const NodePolyfillPlugin = require("node-polyfill-webpack-plugin")
+>
+>    module.exports = {
+>      // Other rules...
+>      plugins: [
+>        new NodePolyfillPlugin({
+>          excludeAliases: ["console"]
+>        })
+>      ]
+>    }
+>  ```
+
+&nbsp;
+
+Utilizando el hook `useState` creamos el siguiente estado:
+* `[account, setAccount]` Almacena una cuenta
+* `[ contract, setContract]`Almacena el contrato
+* `[totalSupply, setTotalSupply]` Almacena el total de tokens
+* `[ colors, setColors]` Almacena los colores de una cuenta
+
+A continuación las siguientes funciones asíncronas:
+* `initWeb3` para inicializar web3.
+* `loadBlockchainData` para cargar los datos de la blockchain.
+* `getColors` obtiene los colores de un usuario
+
+Finalmente, llamamos a estas funciones en el hook `useEffect` con array de dependencias vacío, para que se ejecute una sóla vez al cargar:
+
+```javascript
+useEffect(() => {
+    initWeb3();
+    loadBlockchainData();
+}, []);
+```
