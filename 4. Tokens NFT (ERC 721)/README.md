@@ -484,7 +484,7 @@ Finalmente, llamamos a estas funciones en el hook `useEffect` con array de depen
 useEffect(() => {
     initWeb3();
     loadBlockchainData();
-}, []);
+});
 ```
 
 &nbsp;
@@ -501,3 +501,12 @@ const mint = async (color) => {
       })
   }
 ```
+
+&nbsp;
+
+**Frontend de la Dapp**
+
+Pasamos a implementar el frontend:
+* Mostramos la cuenta en el navbar
+* Mostramos los colores del usuario
+* Formulario para mintear el color seleccionado

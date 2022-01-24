@@ -3,4 +3,10 @@
   width: 150px;
   border-radius: 50%;
   display: inline-block;
+  border: 1px solid black;
+}
+
+.mint-button {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
