@@ -336,7 +336,7 @@ Esta estructura, garantiza además, que la DApp tenga una disponibilidad muy alt
 
 4. Editamos la configuración de Truffle:
 
-    ```json
+  ```json
     {  
       contracts_directory: './src/truffle/contracts/',
       contracts_build_directory: './src/truffle/build/',
@@ -363,7 +363,7 @@ Esta estructura, garantiza además, que la DApp tenga una disponibilidad muy alt
     }
   ```
 
-5. Movemos la carpeta contracts a `src/contracts`
+  5. Movemos la carpeta contracts a `src/contracts`
 
 &nbsp;
 
@@ -396,7 +396,7 @@ Ahora procedemos al despligue en Ganache, creando un nuevo espacio de trabajo *d
 A continuación ejecutamos el comando `truffle compille` para compilar los contratos y, si todo ha ido bien, `truffle migrate` para migrarlos a la blockchain de Ganache.
 
 ```
-Deploying 'Color'
+  Deploying 'Color'
    -----------------
    > transaction hash:    0xfeed2b5044dd274695ce7722c3afed99678ce7725c9b2815e8f93d508284e7f9
    > Blocks: 1            Seconds: 4
@@ -410,3 +410,17 @@ Deploying 'Color'
    > value sent:          0 ETH
    > total cost:          0.0572708 ETH
 ```
+
+&nbsp;
+
+**Testeo del contrato**
+
+Crearemos el fichero `test/color.test.js` e implementamos el testeo:
+* Despliegue
+  * Despliegue exitoso
+  * Nombre Correcto
+  * Símbolo correcto
+* Minteo
+  * Mintea un token
+* Lista
+  * Lista los tokens minteados

@@ -8,7 +8,7 @@ contract Color is ERC721Enumerable {
     string [] public colors;
     mapping (string => bool) _colorExists;
 
-    constructor () ERC721("color", "COLOR") { }
+    constructor () ERC721("Color", "COLOR") { }
 
     // Mintea un color
     function mint(string memory _color) public {
