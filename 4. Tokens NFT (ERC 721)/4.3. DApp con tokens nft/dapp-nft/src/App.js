@@ -124,7 +124,7 @@ function App() {
                   <h2>Tus colores</h2>
                   {colors.map((color, key) => (                    
                     <div key={key} className="col-sm-6 col-md-4 col-lg-3 mt-4">
-                      <span className="token d-flex justify-content-center align-items-center text-uppercase font-weight-bold" style={{ backgroundColor: color }}>
+                      <span className="text-secondary token d-flex justify-content-center align-items-center text-uppercase font-weight-bold" style={{ backgroundColor: color }}>
                         { color }
                       </span>
                     </div>
