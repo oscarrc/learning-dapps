@@ -2,10 +2,10 @@
 pragma solidity >=0.4.4 <0.9.0;
 import "./ERC20.sol";
 
-contract main {
+contract Main {
     
     // Instancia del contrato token 
-    ERC20Basic private token;
+    Token private token;
     
     // Owner del contrato 
     address public owner;
@@ -15,7 +15,7 @@ contract main {
     
     // Constructor 
     constructor () {
-        token = new ERC20Basic(10000);
+        token = new Token(10000);
         owner = msg.sender;
         contrato = address(this);
     }
@@ -58,7 +58,7 @@ contract main {
 
     // Generacion de tokens al contrato
     function GeneraTokens(uint _numTokens) public onlybyOwner(){
-        token.increaseTotalSuply(_numTokens);
+        token.increaseTotalSupply(_numTokens);
     }
 
     // Modificador que permita la ejecución tan solo por el owner

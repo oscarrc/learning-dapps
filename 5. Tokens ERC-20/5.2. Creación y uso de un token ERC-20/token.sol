@@ -108,7 +108,7 @@ contract Token is IERC20{
         balances[_buyer] = balances[_buyer].add(_amount);
 
         // Emitimos el evento de la transferencia
-        Transfer(_owner, _buyer, _amount);
+        emit Transfer(_owner, _buyer, _amount);
 
         //Transferencia exitosa
         return true;

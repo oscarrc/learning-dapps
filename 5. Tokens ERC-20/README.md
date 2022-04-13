@@ -147,3 +147,85 @@ Creación de una Dapp con tokens ERC-20 que, desde una interfaz web, permitirá:
 &nbsp;
 
 **Creación del Smart Contract**
+
+A partir del smart contract creado en la sección anterior, crearemos un contrato Main para interactuar con éste, mediante las siguientes funciones:
+
+* `getOwner` - obtiene propietario del contrato
+* `getContract` - obtiene la dirección del contrato
+* `PrecioTokens` - interna. Devuelve el precio de una cantidad de tokens
+* `sendTokens` - envía tokens a una dirección a cambio de ethers
+* `GenerateTokens` - incrementa el total supply de tokens. Solo accesible por el propietario.
+* `balance_direccion` - devuelve el balance de una dirección
+* `balance_total` - devuelve el balance total de tokens del smart contract.
+
+&nbsp;
+
+**Inicialización de la App**
+
+1. Inicializamos la aplicación React:
+    
+    `npx create-react-app dapp-nft`
+
+2. Instalamos las dependencias:
+    
+    ```bash
+    cd dapp-nft
+    npm install --save bootstrap react-bootstrap truffle web3
+    npm install --save-dev chai chai-as-promised chai-bignumber @openzeppelin/contracts
+    ``` 
+3. Si utilizamos webpack versión 5 o superior:
+  * Instalamos las siguientes dependencias:
+
+    ```bash
+    npm install --save-dev react-app-rewired crypto-browserify stream-browserify assert stream-http https-browserify os-browserify url buffer process
+    ```
+  * Creamos un override para webpack > 5. `config-overrides.js`.
+  * Cambiamos `react-scripts` por `react-app-rewired` en el `package.json`
+
+5. Inicializamos Truffle
+
+  `truffle init`
+
+6. Editamos la configuración de Truffle:
+
+  ```json
+    {  
+      contracts_directory: './src/truffle/contracts/',
+      contracts_build_directory: './src/truffle/build/',
+      migrations_directory: './src/truffle/migrations/',
+      networks: {
+        development: {
+        host: "127.0.0.1",
+        port: 7545,
+        network_id: "*",
+        },
+      },
+      mocha: {},
+      compilers: {
+        solc: {
+          version: "0.8.11",
+          settings: {   
+          optimizer: {
+            enabled: false,
+            runs: 200
+          },
+          }
+        }
+      }
+    }
+  ```
+
+  6. Movemos la carpeta contracts a `src/contracts`
+
+&nbsp;
+
+**Fase de test**
+
+Testearemos todas las funciones públicas del smart contract, asegurandonos una cobertura del 100%.
+Ver `test/main.test.js`
+
+* Testeamos getOwner
+* Testeamos send_tokens
+   * Testeamos balance_direccion
+   * Testeamos balance_total
+* Testeamos GeneraTokens

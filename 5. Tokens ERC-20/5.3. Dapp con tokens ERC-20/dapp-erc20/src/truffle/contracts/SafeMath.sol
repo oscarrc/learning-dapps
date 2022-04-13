@@ -2,6 +2,7 @@
 pragma solidity >=0.4.4 <0.9.0;
 pragma experimental ABIEncoderV2;
 
+
 // Implementacion de la libreria SafeMath para realizar las operaciones de manera segura
 // Fuente: "https://gist.github.com/giladHaimov/8e81dbde10c9aeff69a1d683ed6870be"
 

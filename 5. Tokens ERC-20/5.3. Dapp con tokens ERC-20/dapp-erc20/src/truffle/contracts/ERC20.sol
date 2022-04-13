@@ -1,77 +1,130 @@
-// SPDX-License-Identifier: MIT
+//SPDX-License-Identifier: MIT
+
 pragma solidity >=0.4.4 <0.9.0;
 pragma experimental ABIEncoderV2;
-import "../../../../../../0. Utils/SafeMath.sol";
 
+import "./SafeMath.sol";
+import "./interface.sol";
 
-interface IERC20{
-    function totalSupply() external view returns (uint256);
-    function balanceOf (address account) external view returns (uint256);
-    function allowance(address owner,address spender) external view returns (uint256);
-    function transfer(address recipient, uint256 amount) external returns (bool);
-    function approve (address spender, uint256 amount) external returns (bool);
-    function transferFrom(address sender, address recipient, uint amount) external returns (bool);
-    
-    event Transfer(address indexed from, address indexed to, uint256 value);
-    event Approval (address indexed owner, address indexed spender, uint256 value);
-}
+/// @title Token
+/// @author Oscar R.C.
+/// @notice Define un token ERC-20
 
-contract ERC20Basic is IERC20 {
-    string public constant name = "ERC20Basic";
-    string public constant symbol = "JBJ-TOKEN";
+contract Token is IERC20{
+    // Declaramos la librería SafeMath para su uso con uints
+    using SafeMath for uint;
+
+    // CONSTANTES
+    // Nombre del token
+    string public constant name = "Oscar R.C. Token";
+
+    //Symbolo del token
+    string public constant symbol = "ORCT";
+
+    // Indicamos el número de decimales del token
     uint8 public constant decimals = 2;
-        
-    mapping (address => uint) balances;
-    mapping(address => mapping (address => uint)) allowed;
+
+    // MAPPINGS
+    // Balance de tokens de cada cuenta
+    mapping (address => uint256) public balances;
+
+    // Mapeo de allowances. Ceder tokens a otras direcciones
+    mapping (address => mapping(address => uint)) allowed;
+
+    // VARIABLES
+    // Total supply no es pública, solo se puede consultar desde el método totalSupply
     uint256 totalSupply_;
-    
-    using SafeMath for uint256;
-    
-    constructor (uint256 total){
-        totalSupply_ = total;
-        balances[msg.sender] = totalSupply_;
+
+    // ADICIONAL: declaramos el owner del contrato
+    address public owner;
+
+    // CONSTRUCTOR
+    constructor(uint256 _initialSupply){
+        //Inicializamos el owner del contrato;
+        owner = msg.sender;
+
+        //Inicializamos el totalSupply nadie podrá modificarlo
+        totalSupply_ = _initialSupply;
+
+        //El owner del contrato es el propietario de todos los tokens en un principio
+        balances[owner] = totalSupply_;
+        
     }
-    
+
+    // METODOS HEREDADOS
     function totalSupply() public override view returns (uint256){
         return totalSupply_;
     }
-    
-    function increaseTotalSuply(uint newTokens) public{
-        totalSupply_ += newTokens;
-        balances[msg.sender] += newTokens;
+
+    function balanceOf(address _wallet) public override view returns (uint256){
+        return balances[_wallet];
     }
-    
-    function balanceOf (address tokenOwner) public override view returns (uint256){
-        return balances[tokenOwner];
+
+    function allowance(address _owner, address _delegate) public override view returns (uint256){
+        return allowed[_owner][_delegate];
     }
-    
-    function transfer(address receiver, uint256 numTokens) public override returns (bool){
-        require(numTokens <= balances[msg.sender]);
-        balances[msg.sender] = balances[msg.sender].sub(numTokens);
-        balances[receiver] = balances[receiver].add(numTokens);
-        emit Transfer(msg.sender,receiver,numTokens);
+
+    function transfer(address _recipient, uint256 _amount) public override returns (bool){
+        // Requerimos que el emisor de la transferencia tenga tokens suficientes para transferir
+        require(balances[msg.sender] >= _amount, "Not enough tokens");
+
+        // Realizamos la transferencia. Primero retiramos y luego añadimos para asegurar consistencia
+        // Quitamos los tokens de la cuenta del emisor
+        balances[msg.sender] = balances[msg.sender].sub(_amount);
+        // Y los añadimos al receptor
+        balances[_recipient] = balances[_recipient].add(_amount);
+
+        // Emitimos el evento de transferencia
+        emit Transfer(msg.sender, _recipient, _amount);
+
+        //Devolvemos true, la transferencia se ha completado correctamente
         return true;
-    } 
-    
-    function approve (address delegate, uint256 numTokens) public override returns (bool) {
-        allowed[msg.sender][delegate] = numTokens;
-        emit Approval(msg.sender, delegate, numTokens);
+    }
+
+    function approve(address _delegate, uint256 _amount) public override returns (bool){
+        // Aceptamos que cierta persona haga uso de tokens en nombre de otro
+        allowed[msg.sender][_delegate] = _amount;
+
+        // Emitimos el evento de aprovación
+        emit Approval(msg.sender, _delegate, _amount);
+
+        // Opereación completada con éxito
         return true;
     }
-    
-    function allowance (address owner, address delegate) public override view returns (uint){
-        return allowed[owner][delegate];
+
+    function transferFrom(address _owner, address _buyer, uint256 _amount) public override returns (bool){
+        // El propietario tiene que disponer de los tokens
+        require(balances[_owner] >= _amount, "Allower has not enough tokens");
+
+        // Debemmos tener allowance para transferir dichos tokens
+        require(allowed[_owner][msg.sender] >= _amount, "Allowance is not enough");
+
+        // Realizamos la transferencia
+        // Quitamos los tokens del owner
+        balances[_owner] = balances[_owner].sub(_amount);
+        // Quitamos los tokens del allowance
+        allowed[_owner][msg.sender] = allowed[_owner][msg.sender].sub(_amount);
+        // Transferimos los tokens al receptor
+        balances[_buyer] = balances[_buyer].add(_amount);
+
+        // Emitimos el evento de la transferencia
+        emit Transfer(_owner, _buyer, _amount);
+
+        //Transferencia exitosa
+        return true;
     }
-    
-    function transferFrom(address owner, address buyer, uint256 numTokens) public override returns (bool){
-        require (numTokens <= balances[owner]);
-        require (numTokens <= allowed[owner][msg.sender]);
+
+
+    // METODOS ADICIONALES
+    // Método para incrementar el total supply
+    function increaseTotalSupply(uint _amount) public{
+        //Solo el owner puede generar tokens
+        require(msg.sender == owner, "Only contract owner can increase the supply");
         
-        balances[owner] = balances[owner].sub(numTokens);
-        allowed[owner][msg.sender] = allowed[owner][msg.sender].sub(numTokens);
-        balances[buyer] = balances[buyer].add(numTokens);
-        emit Transfer(owner,buyer,numTokens);
-        return true;
+        // Incrementamos el total supply utilizando safeMAth
+        totalSupply_ = totalSupply_.add(_amount);
+
+        // Atribuímos los tokens al propietario
+        balances[owner] = balances[owner].add(_amount);
     }
-    
 }
