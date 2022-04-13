@@ -264,6 +264,8 @@ En el directorio de la dapp creamos el archivo `src/ethereum/web3.js` en el que 
    export default web3;
 ```
 
+&nbsp;
+
 **Imports de la dApp**
 
 Comenzamos a editar el archivo App.js para importar los siguientes módulos:
@@ -279,6 +281,8 @@ Comenzamos a editar el archivo App.js para importar los siguientes módulos:
    import main from './truffle/build/contracts/Main.json';
    import { useEffect } from 'react'
 ```
+
+&nbsp;
 
 **Instanciando web3, creando estado**
 
@@ -303,6 +307,8 @@ También crearemos las siguientes variables de estado utilizando el hook `useSta
    const [ balance, setBalance ] = useState(0);
 ```
 
+&nbsp;
+
 **Compra de tokens**
 
 Crearemos la función `buyTokens` que se encargará de realizar la compra de tokens. Esta función será asíncrona y modificará la variable de estado `loading` para indicar que se está realizando la compra. También modificará la variable de estado `error` para indicar si ha habido algún error.
@@ -318,3 +324,13 @@ Además modificaremos el layout para incluir un formulario para permitir la comp
 * input Address de texto que al cambiar modifica la variable de estado `address`, a la que se enviarán los tokens
 * input Amount de texto que al cambiar modifica la variable de estado `ammount`, que es la cantidad de tokens a comprar.
 * button para enviar el formulario y realizar la compra
+
+&nbsp;
+
+**Visualizar balance de tokens de dirección**
+
+Crearemos la funcion `getBalance` que se encargará de obtener el balance de tokens de la dirección indicada.
+
+```javascript
+   const balance = await contract.methods.balance_direccion(address).call();
+```
