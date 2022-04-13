@@ -7,8 +7,14 @@ import main from './truffle/build/Main.json';
 import web3 from './ethereum/web3';
 
 const App = () => {
-  const [ account, setAccount ] = useState(null);
+  const [ account, setAccount ] = useState('');
   const [ contract, setContract ] = useState(null);
+  const [ contractAddress, setContractAddress ] = useState(null);
+  const [ amount, setAmount ] = useState(0);
+  const [ loading, setLoading ] = useState(false);
+  const [ error, setError ] = useState(null);
+  const [ address, setAddress ] = useState('');
+  const [ balance, setBalance ] = useState(0);
 
   const init = async () => {
     // Inicialización de web3
@@ -35,6 +41,7 @@ const App = () => {
       const address = networkData.address;
       const instance = new window.web3.eth.Contract(abi, address);
       setContract(instance);
+      setContractAddress(instance.options.address);
     }else{
       console.log("Smart contract not deployed to detected network");
       return;

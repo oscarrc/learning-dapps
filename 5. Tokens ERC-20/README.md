@@ -280,12 +280,25 @@ Comenzamos a editar el archivo App.js para importar los siguientes módulos:
    import { useEffect } from 'react'
 ```
 
-**Instanciando web3; obteniendo contrato y cuentas**
+**Instanciando web3, creando estado**
 
-En la carga de la página, obtenemos web3 e instanciamos el contrato. Ésto lo hacemos en el hook useEffect con array de dependencias vacío, en el que llamamos a la función asíncrona `init`:
+En la carga de la página, obtenemos web3 e instanciamos el contrato. Ésto lo hacemos en el hook `useEffect` con array de dependencias vacío, en el que llamamos a la función asíncrona `init`:
 
 ```javascript
    useEffect(() => {
       init();
    }, [])
+```
+
+También crearemos las siguientes variables de estado utilizando el hook `useState`:
+
+```javascript
+   const [ account, setAccount ] = useState('');
+   const [ contract, setContract ] = useState(null);
+   const [ contractAddress, setContractAddress ] = useState(null);
+   const [ amount, setAmount ] = useState(0);
+   const [ loading, setLoading ] = useState(false);
+   const [ error, setError ] = useState(null);
+   const [ address, setAddress ] = useState('');
+   const [ balance, setBalance ] = useState(0);
 ```
