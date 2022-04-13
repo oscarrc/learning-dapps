@@ -9,12 +9,13 @@ import web3 from './ethereum/web3';
 const App = () => {
   const [ account, setAccount ] = useState('');
   const [ contract, setContract ] = useState(null);
-  const [ contractAddress, setContractAddress ] = useState(null);
+  const [ contractAddress, setContractAddress ] = useState(null);  
+  const [ contractBalance, setContractBalance ] = useState(null);
   const [ amount, setAmount ] = useState(0);
   const [ loading, setLoading ] = useState(false);
   const [ error, setError ] = useState(null);
   const [ address, setAddress ] = useState('');
-  const [ balance, setBalance ] = useState(0);
+  const [ balance, setBalance ] = useState(null);
 
   const init = async () => {
     // Inicialización de web3
@@ -79,6 +80,20 @@ const App = () => {
     }
   }
 
+  const getSupply = async (address) => {
+    setLoading(true);
+
+    try{
+      const balance = await contract.methods.balance_total().call();
+      setContractBalance(balance);
+      setLoading(false);
+    }catch(err){
+      setError(err.message);
+    }finally{      
+      setLoading(false);
+    }
+  }
+
   useEffect(() => {
     init();
   }, []);
@@ -107,6 +122,8 @@ const App = () => {
               <form onSubmit={ (e) => {
                 e.preventDefault();
                 buyTokens(address, amount);
+                setContractBalance(null);
+                setBalance(null);
               }}>
                 <input className="form-control mb-1" type="text" placeholder="Dirección del destinatario" value={address} onChange={ (e) => setAddress(e.target.value) } />
                 <input className="form-control mb-1"  type="text" placeholder="Cantidad de tokens" value={amount} onChange={ (e) => setAmount(e.target.value) } />
@@ -121,12 +138,32 @@ const App = () => {
               }}>
                 <input className="form-control mb-1" type="text" placeholder="Dirección a consultar" value={address} onChange={ (e) => {
                   setAddress(e.target.value)
-                  setBalance(0);
+                  setBalance(null);
                 } } />
-                <div class="alert alert-primary mb-1" role="alert">
-                  { balance } tokens
-                </div>
+                {
+                  balance ?
+                    <div className="alert alert-primary mb-1" role="alert">
+                      { balance } tokens
+                    </div> :
+                    null
+                }
                 <button className="btn w-100 btn-primary btn-sm" type="submit">Ver balance</button>
+              </form>
+            </section>
+            <section className="col-12 col-md-8 col-lg-4 content text-center my-4">
+              <h1>Tokens disponibles</h1>
+              <form onSubmit={ (e) => {
+                e.preventDefault();
+                getSupply();
+              }}>
+                {
+                  contractBalance ?
+                    <div className="alert alert-success mb-1" role="alert">
+                      { contractBalance } tokens disponibles
+                    </div> :
+                    null
+                }
+                <button className="btn w-100 btn-success btn-sm" type="submit">Consultar tokens disponibles</button>
               </form>
             </section>
           </main>

@@ -300,6 +300,7 @@ También crearemos las siguientes variables de estado utilizando el hook `useSta
    const [ account, setAccount ] = useState('');
    const [ contract, setContract ] = useState(null);
    const [ contractAddress, setContractAddress ] = useState(null);
+   const [ contractBalance, setContractBalance ] = useState(null);
    const [ amount, setAmount ] = useState(0);
    const [ loading, setLoading ] = useState(false);
    const [ error, setError ] = useState(null);
@@ -333,4 +334,12 @@ Crearemos la funcion `getBalance` que se encargará de obtener el balance de tok
 
 ```javascript
    const balance = await contract.methods.balance_direccion(address).call();
+```
+
+**Visualizar total supply de tokens**
+
+Crearemos la funcion `getTotalSupply` que se encargará de obtener el balance de tokens del smart contract.
+
+```javascript
+   const balance = await contract.methods.balance_total(address).call();
 ```
