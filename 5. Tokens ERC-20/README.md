@@ -343,3 +343,8 @@ Crearemos la funcion `getTotalSupply` que se encargará de obtener el balance de
 ```javascript
    const balance = await contract.methods.balance_total(address).call();
 ```
+
+**Recibiendo ethers por nuestros tokens**
+
+**Despliegue de la Dapp en BSC y Polygon**
+
