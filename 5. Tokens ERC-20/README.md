@@ -136,3 +136,14 @@ Polygon (MATIC) es una *sidechain* que nace de la necesidad de reducir los const
 &nbsp;
 
 ### 5.3. Dapp con tokens ERC-20
+
+Creación de una Dapp con tokens ERC-20 que, desde una interfaz web, permitirá:
+
+1. Comprar tokens
+2. Consultar el balance total de tokens de una cuenta
+3. Consultar el blance total de tokens del contrato
+4. Añadir nuevos tokens, aka. incrementar totalSupply
+
+&nbsp;
+
+**Creación del Smart Contract**
