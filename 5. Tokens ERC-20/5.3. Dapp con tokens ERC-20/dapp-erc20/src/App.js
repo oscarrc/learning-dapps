@@ -48,12 +48,29 @@ const App = () => {
     }
   }
 
+  const buyTokens = async (address, amount) => {
+    setLoading(true);
+
+    try{
+      await contract.methods.send_tokens(address, amount).send({ 
+        from: account,
+        value: window.web3.utils.toWei(amount.toString(), 'ether')
+      })
+
+      setLoading(false);
+    }catch(err){
+      setError(err.message);
+    }finally{      
+      setLoading(false);
+    }
+  }
+
   useEffect(() => {
     init();
   }, []);
 
   return (
-    <div>
+    <>
         <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow px-4">
           <a
             className="navbar-brand col-sm-3 col-md-2 mr-0"
@@ -65,11 +82,28 @@ const App = () => {
           </a>
           <ul className="navbar-nav px-3">
             <li className="nav-item text-nowrap d-none d-sm-block">
-              <small className="text-white"></small>
+              <small className="text-white">{account}</small>
             </li>
           </ul>
         </nav>
-    </div>
+        <div className="container-fluid mt-5">
+          <div className="row">
+             <main className="col-lg-12 d-flex  justify-content-center">
+               <section className="content">
+                  <h1>Compra de tokens ERC-20</h1>
+                  <form onSubmit={ (e) => {
+                    e.preventDefault();
+                    buyTokens(address, amount);
+                  }}>
+                    <input className="form-control mb-1" type="text" placeholder="Dirección del destinatario" value={address} onChange={ (e) => setAddress(e.target.value) } />
+                    <input className="form-control mb-1"  type="text" placeholder="Cantidad de tokens" value={amount} onChange={ (e) => setAmount(e.target.value) } />
+                    <button className="btn w-100 btn-danger btn-sm" type="submit">Comprar Tokens</button>
+                  </form>
+               </section>
+             </main>
+          </div>
+        </div>
+    </>
   );
 }
 

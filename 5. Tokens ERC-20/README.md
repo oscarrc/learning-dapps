@@ -302,3 +302,19 @@ También crearemos las siguientes variables de estado utilizando el hook `useSta
    const [ address, setAddress ] = useState('');
    const [ balance, setBalance ] = useState(0);
 ```
+
+**Compra de tokens**
+
+Crearemos la función `buyTokens` que se encargará de realizar la compra de tokens. Esta función será asíncrona y modificará la variable de estado `loading` para indicar que se está realizando la compra. También modificará la variable de estado `error` para indicar si ha habido algún error.
+
+```javascript
+ await contract.methods.send_tokens(address, amount).send({ 
+        from: account,
+        value: window.web3.utils.toWei(amount.toString(), 'ether')
+      })
+```
+
+Además modificaremos el layout para incluir un formulario para permitir la compra de tokens. Este formulario contará con:
+* input Address de texto que al cambiar modifica la variable de estado `address`, a la que se enviarán los tokens
+* input Amount de texto que al cambiar modifica la variable de estado `ammount`, que es la cantidad de tokens a comprar.
+* button para enviar el formulario y realizar la compra
