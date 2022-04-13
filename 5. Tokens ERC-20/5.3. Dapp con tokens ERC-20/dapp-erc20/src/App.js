@@ -16,6 +16,7 @@ const App = () => {
   const [ error, setError ] = useState(null);
   const [ address, setAddress ] = useState('');
   const [ balance, setBalance ] = useState(null);
+  const [ action, setAction ] = useState('');
 
   const init = async () => {
     // Inicialización de web3
@@ -51,6 +52,10 @@ const App = () => {
 
   const buyTokens = async (address, amount) => {
     setLoading(true);
+    setAction('buy');
+    setError(null);    
+    setContractBalance(null);
+    setBalance(null);
 
     try{
       await contract.methods.send_tokens(address, amount).send({ 
@@ -68,6 +73,8 @@ const App = () => {
 
   const getBalance = async (address) => {
     setLoading(true);
+    setAction('balance');
+    setError(null);
 
     try{
       const balance = await contract.methods.balance_direccion(address).call();
@@ -82,6 +89,8 @@ const App = () => {
 
   const getSupply = async (address) => {
     setLoading(true);
+    setAction('supply');
+    setError(null);
 
     try{
       const balance = await contract.methods.balance_total().call();
@@ -117,17 +126,29 @@ const App = () => {
       </nav>
       <div className="container-fluid my-5 flex-grow-1">
         <main className="row d-flex flex-column justify-content-center align-items-center">
+          <aside>
+            {
+                error ?
+                  <div className="alert alert-danger mb-1" role="alert">
+                    { error }
+                  </div> :
+                  null
+              }
+          </aside>
           <section className="col-12 col-md-8 col-lg-4 content text-center my-4">
             <h1>Compra de tokens ERC-20</h1>
             <form onSubmit={ (e) => {
               e.preventDefault();
               buyTokens(address, amount);
-              setContractBalance(null);
-              setBalance(null);
             }}>
               <input className="form-control mb-1" type="text" placeholder="Dirección del destinatario" value={address} onChange={ (e) => setAddress(e.target.value) } />
               <input className="form-control mb-1"  type="text" placeholder="Cantidad de tokens" value={amount} onChange={ (e) => setAmount(e.target.value) } />
-              <button className="btn w-100 btn-danger btn-sm" type="submit">Comprar Tokens</button>
+              <button disabled={loading} className="btn w-100 btn-danger btn-sm" type="submit">
+                { loading && action ==="buy" ? 
+                  <span class="spinner-border spinner-border-sm mr-2" role="status" aria-busy="true"></span> :
+                   null 
+              } Comprar Tokens
+              </button>
             </form>
           </section>
           <section className="col-12 col-md-8 col-lg-4 content text-center my-4">
@@ -147,7 +168,12 @@ const App = () => {
                   </div> :
                   null
               }
-              <button className="btn w-100 btn-primary btn-sm" type="submit">Ver balance</button>
+              <button disabled={loading} className="btn w-100 btn-primary btn-sm" type="submit">
+                { loading && action === "balance" ? 
+                  <span class="spinner-border spinner-border-sm mr-2 text" role="status" aria-busy="true"></span> : 
+                  null 
+                } Ver balance
+              </button>
             </form>
           </section>
           <section className="col-12 col-md-8 col-lg-4 content text-center my-4">
@@ -163,7 +189,12 @@ const App = () => {
                   </div> :
                   null
               }
-              <button className="btn w-100 btn-success btn-sm" type="submit">Consultar tokens disponibles</button>
+              <button disabled={loading} className="btn w-100 btn-success btn-sm" type="submit">
+                { loading && action ==="supply" ? 
+                  <span class="spinner-border spinner-border-sm mr-2 text" role="status" aria-busy="true"></span> : 
+                  null 
+                } Consultar tokens disponibles
+              </button>
             </form>
           </section>
         </main>
