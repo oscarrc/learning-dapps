@@ -263,3 +263,29 @@ En el directorio de la dapp creamos el archivo `src/ethereum/web3.js` en el que 
 
    export default web3;
 ```
+
+**Imports de la dApp**
+
+Comenzamos a editar el archivo App.js para importar los siguientes módulos:
+
+* Librería `Web3`
+* Helper `web3` (la que creamos en el apartado anterior)
+* Contrato `Main` (abi)
+* El hook useEffect y useState de react
+
+```javascript
+   import Web3 from 'web3';
+   import web3 from './ethereum/web3';
+   import main from './truffle/build/contracts/Main.json';
+   import { useEffect } from 'react'
+```
+
+**Instanciando web3; obteniendo contrato y cuentas**
+
+En la carga de la página, obtenemos web3 e instanciamos el contrato. Ésto lo hacemos en el hook useEffect con array de dependencias vacío, en el que llamamos a la función asíncrona `init`:
+
+```javascript
+   useEffect(() => {
+      init();
+   }, [])
+```
