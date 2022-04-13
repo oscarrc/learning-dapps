@@ -164,7 +164,7 @@ A partir del smart contract creado en la sección anterior, crearemos un contrat
 
 1. Inicializamos la aplicación React:
     
-    `npx create-react-app dapp-nft`
+    `npx create-react-app dapp-erc20`
 
 2. Instalamos las dependencias:
     
@@ -229,3 +229,37 @@ Ver `test/main.test.js`
    * Testeamos balance_direccion
    * Testeamos balance_total
 * Testeamos GeneraTokens
+
+&nbsp;
+
+**Web 3**
+
+En el directorio de la dapp creamos el archivo `src/ethereum/web3.js` en el que importaremos e instanciarmos Web3.
+
+```javascript
+   import Web3 from "web3";
+
+   let web3;
+
+   if(window.web3) {
+      web3 = new Web3(window.web3.currentProvider);
+   }
+
+   window.addEventListener("load", async () => {
+      if(window.ethereum) {
+         window.web3 = new Web3(window.ethereum);
+
+         try{
+               await window.ethereum.request({ method: 'eth_requestAccounts' })
+         }catch(err){
+               console.log(err);
+         }
+      }else if(window.web3){
+         window.web3 = new Web3(window.web3.currentProvider);
+      }else{
+         console.log("Non-Ethereum browser detected");
+      }
+   })
+
+   export default web3;
+```
