@@ -194,7 +194,7 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "//SPDX-License-Identifier: MIT\r\n\r\npragma solidity >=0.4.4 <0.9.0;\r\n\r\n/// @title IERC20\r\n/// @author Oscar R.C.\r\n/// @notice Interfaz ERC-20\r\n\r\ninterface IERC20 {\r\n    // MÉTODOS DEL TOKEN\r\n    // Devuelve la cantidad de tokens en existencia\r\n    function totalSupply() external view returns (uint256);\r\n\r\n    // Devuelve la cantidad de tokens de una cartera\r\n    function balanceOf(address _wallet) external view returns (uint256);\r\n\r\n    // Devuelve el número de tokens que el spender podra gastar en nombre del propietario (owner)\r\n    function allowance(address _owner, address _spender) external view returns (uint256);\r\n\r\n    // Devuelve un valor bool resultado de la operación de transferir tokens\r\n    function transfer(address _recipient, uint256 _amount) external returns (bool);\r\n\r\n    // Devuelve un valor bool resultado de la operación de gasto de tokens\r\n    function approve(address _spender, uint256 _amount) external returns (bool);\r\n\r\n    // Devuelve un valor bool reseultado de la operación de transpaso de tokens indirecto, desde un allowance\r\n    function transferFrom(address _sender, address _recipient, uint256 _amount) external returns (bool);\r\n\r\n    // EVENTOS (no es necesario definirlos en el contrato que implemente la interfaz)\r\n    // Se emite cuando una cantidad de tokens pasa de un origen a un destino\r\n    event Transfer(address indexed from, address indexed to, uint256 value);\r\n\r\n    // Se emite cuando se establece una asignación con el método allowance\r\n    event Approval(address indexed owner, address indexed spender, uint256 value);\r\n}",
-  "sourcePath": "/mnt/c/Users/newton/Desktop/Oscar/learning-dapps/5. Tokens ERC-20/5.3. Dapp con tokens ERC-20/dapp-erc20/src/truffle/contracts/interface.sol",
+  "sourcePath": "/mnt/d/Web/learning-dapps/5. Tokens ERC-20/5.3. Dapp con tokens ERC-20/dapp-erc20/src/truffle/contracts/interface.sol",
   "ast": {
     "absolutePath": "project:/src/truffle/contracts/interface.sol",
     "exportedSymbols": {
@@ -1937,7 +1937,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.4",
-  "updatedAt": "2022-04-13T10:18:19.991Z",
+  "updatedAt": "2022-04-14T09:50:50.635Z",
   "devdoc": {
     "author": "Oscar R.C.",
     "kind": "dev",

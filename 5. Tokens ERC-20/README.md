@@ -346,5 +346,74 @@ Crearemos la funcion `getTotalSupply` que se encargará de obtener el balance de
 
 **Recibiendo ethers por nuestros tokens**
 
-**Despliegue de la Dapp en BSC y Polygon**
+Para recibir ethers por nuestros tokens, modificaremos la funcion `send_tokens` para hacerla payable. Además, comprobaremos que el `msg.value`sea mayor o igual que el token.
 
+```    
+   function send_tokens (address _destinatario, uint _numTokens) public payable {
+      // Código
+      require(msg.value >= PrecioTokens(_numTokensW), "Compra menos tokens o paga con mas ethers");
+```
+
+Además incluiremos una función para calcular el precio de los tokens. Para mantenerlo sencillo, un token, un ether.
+
+```solidity
+function PrecioTokens(uint _numTokens) internal pure returns (uint) {
+        // Conversion de Tokens a ethers: 1 token -> 1 Ether
+        return _numTokens*(1 ether);
+    }
+```
+
+**Despliegue de la Dapp en Rinkeby con Infura**
+
+Para desplegar la dApp en Rinkeby utilizaremos un nodo de [Infura](https://infura.io). Infura nos proporcionará un nodo al que conectaremos nuestro proyecto.
+
+Una vez creada la cuenta crearemos un nuevo projecto de Ethereum:
+
+1. Cambiamos el Endpoint a `rinkeby`
+2. Anotamos la URL del endpoint `https://rinkeby.infura.io/v3/<PROJECT_ID>`
+3. Instalamos las dependencias:
+
+   ```bash
+      npm install --save-dev @truffle/hdwallet-provider
+   ```
+
+4. Modificamos el archivo `truffle-config.js`
+   4.1. Añadimos las dependencias
+   
+   ``` javascript
+      const HDWalletProvider = require('@truffle/hdwallet-provider');
+      const fs = require('fs');
+      const mnemonic = fs.readFileSync(".secret").toString().trim();
+   ```
+
+   4.2 Añadimos la red `rinkeby`
+
+   ```javascript
+      rinkeby: {
+         provider: () => {
+         return new HDWalletProvider(mnemonic, "https://rinkeby.infura.io/v3/<PROJECT_ID>");
+         },
+         network_id: 4,
+         gas: 4500000,
+         gasPrice: 10000000000,
+      }
+   ```
+
+5. Creamos el archivo `.secret` con la [mnemonic](https://metamask.zendesk.com/hc/en-us/articles/360015290032-How-to-reveal-your-Secret-Recovery-Phrase) de la cuenta de Metamask que utilizaremos.
+
+A continuación, compilamos los contratos y los desplegamos en dicha red:
+
+```bash
+   truffle compile
+   truffle migrate --network rinkeby
+```
+
+Con esto tendríamos la dApp desplegada en Rinkeby utilizando un nodo de Infura.
+
+Ahora podemos iniciar nuestra app y veremos las peticiones en el panel de control de Infura.
+
+---
+
+&nbsp;
+
+### 5.4. Binance Smart Chain

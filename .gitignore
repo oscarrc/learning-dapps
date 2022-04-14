@@ -1,3 +1,4 @@
 .debug
 artifacts
 node_modules
+.secret

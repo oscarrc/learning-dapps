@@ -10,7 +10,7 @@
   "sourceMap": "280:894:3:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;",
   "deployedSourceMap": "280:894:3:-:0;;;;;;;;",
   "source": "// SPDX-License-Identifier: MIT\r\npragma solidity >=0.4.4 <0.9.0;\r\npragma experimental ABIEncoderV2;\r\n\r\n\r\n// Implementacion de la libreria SafeMath para realizar las operaciones de manera segura\r\n// Fuente: \"https://gist.github.com/giladHaimov/8e81dbde10c9aeff69a1d683ed6870be\"\r\n\r\nlibrary SafeMath{\r\n    // Restas\r\n    function sub(uint256 a, uint256 b) internal pure returns (uint256) {\r\n      assert(b <= a);\r\n      return a - b;\r\n    }\r\n    \r\n    // Sumas\r\n    function add(uint256 a, uint256 b) internal pure returns (uint256) {\r\n      uint256 c = a + b;\r\n      assert(c >= a);\r\n      return c;\r\n    }\r\n    \r\n    // Multiplicacion\r\n    function mul(uint256 a, uint256 b) internal pure returns (uint256) {\r\n        if (a == 0) {\r\n            return 0;\r\n        }\r\n\r\n        uint256 c = a * b;\r\n        require(c / a == b, \"SafeMath: multiplication overflow\");\r\n\r\n        return c;\r\n    }\r\n\r\n    // División, implementación propia\r\n    function div(uint256 a, uint256 b) internal pure returns (uint256) {\r\n      assert(b>0);\r\n      assert(a%b == 0);\r\n      \r\n      uint256 c = a / b;\r\n      require(c * b == a, \"SafeMath: division overflow\");\r\n\r\n      return c;\r\n    }\r\n}",
-  "sourcePath": "/mnt/c/Users/newton/Desktop/Oscar/learning-dapps/5. Tokens ERC-20/5.3. Dapp con tokens ERC-20/dapp-erc20/src/truffle/contracts/SafeMath.sol",
+  "sourcePath": "/mnt/d/Web/learning-dapps/5. Tokens ERC-20/5.3. Dapp con tokens ERC-20/dapp-erc20/src/truffle/contracts/SafeMath.sol",
   "ast": {
     "absolutePath": "project:/src/truffle/contracts/SafeMath.sol",
     "exportedSymbols": {
@@ -3181,7 +3181,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.4",
-  "updatedAt": "2022-04-13T10:18:19.951Z",
+  "updatedAt": "2022-04-14T09:50:50.592Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},
