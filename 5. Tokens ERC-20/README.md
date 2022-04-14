@@ -417,3 +417,39 @@ Ahora podemos iniciar nuestra app y veremos las peticiones en el panel de contro
 &nbsp;
 
 ### 5.4. Binance Smart Chain
+
+&nbsp;
+
+Binance Smart Chain (BSC) es la cadena de bloques que funciona en paralelo a Binance Chain. En este caso BSC se orienta a los contratos inteligentes, permitiendo que se pueda operar sobre aplicaciones descentralizadas en una plataforma sin permisos.
+
+Binance Smart Chain se lanzó a finales del año 2020 orientada a albergar alternativas de menor coste para la gestión de finanzas descentralizadas. Destaca por una velocidad elevada con tiempo de bloque en torno a los 5 segundos.
+
+Permite realizar transferencias de activo entre cadenas de bloques, siendo compatible con EMV. La gestión utiliza Prueba de Participación Autorizada.
+
+El funcionamiento de Binance Smart Chain, aunque es independiente a Binance Chain y funciona en paralelo, permite que ambas cadenas sean compatibles. Esto significa, que será posible la transferencia de activos digitales de una cadena de bloques a otra.
+
+Binance Smart Chain utiliza un token BEP-20. Se trata del mismo tipo de Token que el ERC-20 de Ethereum. BEP-20 es un Token orientado a facilitar el desarrollo de activos digitales que sean fungibles en la propia cadena de bloques.
+
+Además, también es posible movilizar otros activos digitales de otras cadenas en dirección a Binance Smart Chain, utilizando para ello activos puente basados en el BEP-20. De esta manera, se puede, por ejemplo, operar con Bitcoin a través de un token vinculado.
+
+&nbsp;
+
+**Añadir BSC a Metamask**
+
+Metamask -> Redes -> Agregar red
+
+| | Mainnet | Testnet |
+| -- | -- | -- |
+| ID | 56 | 97 |
+| Nombre | Smart Chain | Smart Chain - Testnet |
+| Divisa | Binance | Binance |
+| Simbolo | BNB | BNB |
+| Decimales | 18 | 18 |
+| URL RPC | https://bsc-dataseed.binance.org | https://data-seed-prebsc-1-s1.binance.org:8545/ |
+| URL Explorer | https://bscscan.com | https://testnet.bscscan.com |
+
+[Binance Smart Chain Testnet faucet](https://testnet.binance.org/faucet-smart)
+
+&nbsp;
+
+**Despliegue de la dApp en BSC**
