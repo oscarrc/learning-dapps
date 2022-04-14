@@ -453,3 +453,31 @@ Metamask -> Redes -> Agregar red
 &nbsp;
 
 **Despliegue de la dApp en BSC**
+
+1. Añadimos las dependencias del `truffle-config.js`
+   
+   ``` javascript
+      const HDWalletProvider = require('@truffle/hdwallet-provider');
+      const fs = require('fs');
+      const mnemonic = fs.readFileSync(".secret").toString().trim();
+   ```
+
+2. Añadimos la network al apartado `networks` del `truffle-config.js`:
+
+   ```javascript
+      bscTestnet: {
+         provider: () => {
+         return new HDWalletProvider(mnemonic, "https://data-seed-prebsc-1-s1.binance.org:8545");
+         },
+         network_id: 97,
+         confirmations: 10,
+         timeout: 200,
+         skipDryRun: true
+      }
+   ```
+
+3. Migramos los contratos:
+   
+   ```bash
+      truffle migrate --network bscTestnet
+   ```

@@ -54,6 +54,15 @@ module.exports = {
       network_id: 4,
       gas: 4500000,
       gasPrice: 10000000000,
+    },
+    bscTestnet: {
+      provider: () => {
+        return new HDWalletProvider(mnemonic, "https://data-seed-prebsc-1-s1.binance.org:8545");
+      },
+      network_id: 97,
+      confirmations: 10,
+      timeout: 200,
+      skipDryRun: true
     }
     // Another network with more advanced options...
     // advanced: {
