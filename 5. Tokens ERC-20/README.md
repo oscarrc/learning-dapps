@@ -604,3 +604,13 @@ Del mismo modo crearemos funciones y formularios para:
 * Comprobar el balance de tokens de una cuenta
 * Comprobar el balance de tokens del contrato
 * Incrementar los tokens disponibles del contrato
+
+&nbsp;
+
+**Gestión de boletos**
+
+En esta página crearemos formularios que permitan al usuario:
+* Comprar boletos
+* Ver boletos comprados
+* Ver el total del bote
+* Ver precio de un boleto
