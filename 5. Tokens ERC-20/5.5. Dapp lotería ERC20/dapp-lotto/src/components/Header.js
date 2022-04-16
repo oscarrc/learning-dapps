@@ -12,10 +12,10 @@ const Header = ({account}) => {
                     <Nav className="me-auto">
                         <Nav.Link as={Link} to="/">Tokens</Nav.Link>
                         <Nav.Link as={Link} to="/lotto">Lotto</Nav.Link>
-                        <Nav.Link as={Link} to="/winers">Winners</Nav.Link>
+                        <Nav.Link as={Link} to="/winners">Winners</Nav.Link>
                     </Nav>                    
                     <Nav>
-                        <Nav.Item>
+                        <Nav.Item className="text-center">
                             <span className="badge bg-secondary">{account}</span>
                         </Nav.Item>
                     </Nav>

@@ -537,3 +537,70 @@ Además, crearemos componentes individuales para cada una de las rutas que estab
       </Router>
     </div>
 ```
+
+Por último en App.js inicializaremos web3 y el contrato de lotería:
+
+```javascript
+   const init = async () => {
+    // Inicialización de web3
+    if(window.ethereum) {
+        window.web3 = new Web3(window.ethereum);
+        await window.ethereum.request({ method: 'eth_requestAccounts' })
+    }else if(window.web3){
+        window.web3 = new Web3(window.web3.currentProvider);
+    }else{
+        console.log("Non-Ethereum browser detected");
+        return;
+    }
+
+    // Obtener cuenta
+    const accounts = await window.web3.eth.getAccounts();
+    setAccount(accounts[0]);
+
+    // Obtener network
+    const networkId = await window.web3.eth.net.getId();
+    const networkData = await lotto.networks[networkId];
+
+    if(networkData) {
+      const abi = lotto.abi;
+      const address = networkData.address;
+      const instance = new window.web3.eth.Contract(abi, address);
+      setContract(instance);
+      setContractAddress(instance.options.address);
+    }else{
+      console.log("Smart contract not deployed to detected network");
+      return;
+    }
+  }
+```
+
+&nbsp;
+
+**Gestión de tokens**
+
+Creamos una función asíncrona para la compra de tokens envuelta en un try...catch.
+
+```javascript
+   const getTokens = async (to, amount, ethers) => {
+        setLoading(true);
+        setError('');
+        
+        try{
+            await contract.methods.buyTokens(to, amount).send({
+                from: account,
+                value: window.web3.utils.toWei(ethers, 'ether')
+            });
+        }catch(err){
+            setError(err.message)
+        }finally{
+            setLoading(false);
+        }
+   }
+```
+
+Así como un formulario el cual recibirá los datos del usuario y llamará a la función para comprar tokens.
+
+Del mismo modo crearemos funciones y formularios para:
+* Comprobar el balance de tokens de una cuenta
+* Comprobar el balance de tokens del contrato
+* Incrementar los tokens disponibles del contrato

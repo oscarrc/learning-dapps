@@ -69,7 +69,7 @@ contract Lotto {
     }
 
     // Funcion para comprar tokens
-    function buyTokens(uint _num_tokens) public payable{
+    function buyTokens(address _to, uint _num_tokens) public payable{
         // Obtenemos el precio del token
         uint price = tokenPrice(_num_tokens);
         // Requerimos que el usuario tenga los eth suficientes
@@ -87,10 +87,10 @@ contract Lotto {
         return_address.transfer(return_value);
 
         // Transferimos los tokens al usuario
-        token.transfer(msg.sender, _num_tokens);
+        token.transfer(_to, _num_tokens);
 
         // Emitimos el evento
-        emit tokensBought(msg.sender, _num_tokens);
+        emit tokensBought(_to, _num_tokens);
     }
 
     // Funcion para obtener el balance de tokens en el bote
@@ -100,8 +100,8 @@ contract Lotto {
     }
 
     // Funcion para visualizar tokens disponibles
-    function balanceOf() public view returns(uint){
-        return token.balanceOf(msg.sender);
+    function balanceOf(address _account) public view returns(uint){
+        return token.balanceOf(_account);
     }
 
     // ------------------------- LOTERIA ------------------------- //
@@ -135,7 +135,7 @@ contract Lotto {
         // Calculamos el precio
         uint price = _num_tickets * ticketPrice;
         // Requerimos que el usuario tenga los tokens suficientes
-        require(balanceOf() >= price, "You don't have enough tokens to buy this amount of tickets");
+        require(balanceOf(msg.sender) >= price, "You don't have enough tokens to buy this amount of tickets");
 
         // Transferencia de tokens al owner del contrato (método transfer del contrato token). El bote.
         token.transferFromTo(msg.sender, owner, price);
@@ -194,7 +194,7 @@ contract Lotto {
         // Requerimos que el número de tokens a convertir sea mayor que cero
         require(_num_tokens > 0, "You can't cashout 0 or negative tokens");
         // Requerimos que el número de tokens a convertir sea menor o igual al número de tokens disponibles
-        require(balanceOf() >= _num_tokens, "You don't have enough tokens to cashout");
+        require(balanceOf(msg.sender) >= _num_tokens, "You don't have enough tokens to cashout");
 
         // Retiramos los tokens de la cuenta del usuario
         token.transferFromTo(msg.sender, contract_address, _num_tokens);

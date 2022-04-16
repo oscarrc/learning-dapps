@@ -60,9 +60,9 @@ const App = () => {
         <Container fluid className="my-5 flex-grow-1"> 
           <main className="row d-flex flex-column justify-content-center align-items-center">
             <Routes>
-              <Route path="/" element={<Tokens />} />
-              <Route path="lotto" element={<Lotto />} />
-              <Route path="winners" element={<Winners />} />
+              <Route path="/" element={<Tokens contract={contract} account={account} />} />
+              <Route path="lotto" element={<Lotto contract={contract} account={account} />} />
+              <Route path="winners" element={<Winners contract={contract} account={account} />} />
             </Routes>
           </main>
         </Container>
