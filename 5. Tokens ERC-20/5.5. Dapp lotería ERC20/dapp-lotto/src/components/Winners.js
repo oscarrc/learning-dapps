@@ -1,14 +1,22 @@
+import { Button, Card, Col, Container, Form, Row, Spinner } from 'react-bootstrap';
+
+import Notification from './Notification';
 import { useState } from 'react';
 
-const Winners = () => {
+const Lotto = () => {
     const [ loading, setLoading ] = useState(false);
     const [ error, setError ] = useState('');
+    const [ success, setSuccess ] = useState('');
 
     return (
-        <section className="col-12 col-md-8 col-lg-4 content text-center my-4">
-            <h1>Premios de lotería</h1>
-        </section>
+        <Container as="section" className="d-flex flex-column gap-4 content my-4">
+            <h1 className="text-center my-4">Premios de la lotería</h1>
+            <Notification message={error} type="danger" clear={() => setError('')} />
+            <Notification message={success} type="success" clear={() => setSuccess('')} />
+            <Row className="gx-4 gy-4">
+            </Row>
+        </Container>
     )
 }
 
-export default Winners;
+export default Lotto;

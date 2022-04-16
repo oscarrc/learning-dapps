@@ -57,14 +57,12 @@ const App = () => {
     <div className="d-flex flex-column min-vh-100">      
       <Router>       
         <Header account={account} />
-        <Container fluid className="my-5 flex-grow-1"> 
-          <main className="row d-flex flex-column justify-content-center align-items-center">
-            <Routes>
-              <Route path="/" element={<Tokens contract={contract} account={account} />} />
-              <Route path="lotto" element={<Lotto contract={contract} account={account} />} />
-              <Route path="winners" element={<Winners contract={contract} account={account} />} />
-            </Routes>
-          </main>
+        <Container fluid as={"main"} className="d-flex flex-column justify-content-center align-items-center my-5 flex-grow-1">
+          <Routes>
+            <Route path="/" element={<Tokens contract={contract} account={account} />} />
+            <Route path="lotto" element={<Lotto contract={contract} account={account} />} />
+            <Route path="winners" element={<Winners contract={contract} account={account} />} />
+          </Routes>
         </Container>
         <Footer contractAddress={contractAddress} />      
       </Router>
