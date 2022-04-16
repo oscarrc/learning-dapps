@@ -19724,12 +19724,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0xC3549D495510d86dE6168e65D9aD59dEb49dae17",
-      "transactionHash": "0x7e26aabe60bc1ebcc27ed38cef48782ac22d3a6da49a9cf145ee74fce3d2a291"
+      "address": "0x90024674744180aEADC95a8b8D79a9E504E11e06",
+      "transactionHash": "0x0d7a19cd4f53123727f9465f6fcfb0c6f8e3a788bc98d17970d1dcaa58fb41c2"
     }
   },
   "schemaVersion": "3.4.4",
-  "updatedAt": "2022-04-16T13:11:50.679Z",
+  "updatedAt": "2022-04-16T18:12:25.825Z",
   "networkType": "ethereum",
   "devdoc": {
     "author": "Oscar R.C.",

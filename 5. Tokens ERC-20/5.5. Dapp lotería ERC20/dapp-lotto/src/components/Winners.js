@@ -42,7 +42,7 @@ const Lotto = ({contract, account}) => {
             <Notification message={error} type="danger" clear={() => setError('')} />
             <Notification message={success} type="success" clear={() => setSuccess('')} />
             <Row className="gx-4 gy-4">
-                <Col xs={6}>
+                <Col sm={12} md={6}>
                     <Card className="bg-light">
                         <Card.Body>
                             <Card.Title className="mb-4">
@@ -63,7 +63,7 @@ const Lotto = ({contract, account}) => {
                         </Card.Body>
                     </Card>               
                 </Col>
-                <Col xs={6}>
+                <Col sm={12} md={6}>
                     <Card className="bg-light">
                         <Card.Body>
                             <Card.Title className="mb-4">
