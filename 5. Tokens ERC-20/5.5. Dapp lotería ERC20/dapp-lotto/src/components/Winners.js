@@ -3,7 +3,7 @@ import { Button, Card, Col, Container, Form, Row, Spinner } from 'react-bootstra
 import Notification from './Notification';
 import { useState } from 'react';
 
-const Lotto = () => {
+const Lotto = ({contract, account}) => {
     const [ loading, setLoading ] = useState(false);
     const [ error, setError ] = useState('');
     const [ success, setSuccess ] = useState('');
