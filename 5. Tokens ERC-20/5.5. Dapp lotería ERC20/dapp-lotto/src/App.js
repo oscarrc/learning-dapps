@@ -1,9 +1,16 @@
 import './App.css';
 
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
+import { Container } from 'react-bootstrap';
+import Footer from './components/Footer';
+import Header from './components/Header';
+import Lotto from './components/Lotto';
+import Tokens from './components/Tokens';
 import Web3 from 'web3';
-import main from './truffle/build/Lotto.json';
+import Winners from './components/Winners';
+import lotto from './truffle/build/Lotto.json';
 
 const App = () => {
   const [ account, setAccount ] = useState('');
@@ -28,10 +35,10 @@ const App = () => {
 
     // Obtener network
     const networkId = await window.web3.eth.net.getId();
-    const networkData = await main.networks[networkId];
+    const networkData = await lotto.networks[networkId];
 
     if(networkData) {
-      const abi = main.abi;
+      const abi = lotto.abi;
       const address = networkData.address;
       const instance = new window.web3.eth.Contract(abi, address);
       setContract(instance);
@@ -47,29 +54,20 @@ const App = () => {
   }, []);
 
   return (
-    <div className="d-flex flex-column min-vh-100">
-      <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow px-4">
-        <a
-          className="navbar-brand col-sm-3 col-md-2 mr-0"
-          href="/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          DApp Lotería
-        </a>
-        <ul className="navbar-nav px-3">
-          <li className="nav-item text-nowrap d-none d-sm-block">
-            <span className="badge bg-secondary">{account}</span>
-          </li>
-        </ul>
-      </nav>
-      <div className="container-fluid my-5 flex-grow-1">
-        <main className="row d-flex flex-column justify-content-center align-items-center">
-        </main>
-      </div>
-      <footer className="d-flex justify-content-center text-center py-4" >
-        <span className="badge bg-dark">Contract: {contractAddress}</span>
-      </footer>
+    <div className="d-flex flex-column min-vh-100">      
+      <Router>       
+        <Header account={account} />
+        <Container fluid className="my-5 flex-grow-1"> 
+          <main className="row d-flex flex-column justify-content-center align-items-center">
+            <Routes>
+              <Route path="/" element={<Tokens />} />
+              <Route path="lotto" element={<Lotto />} />
+              <Route path="winners" element={<Winners />} />
+            </Routes>
+          </main>
+        </Container>
+        <Footer contractAddress={contractAddress} />      
+      </Router>
     </div>
   );
 }

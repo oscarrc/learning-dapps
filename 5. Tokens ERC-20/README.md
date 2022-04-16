@@ -495,6 +495,7 @@ Metamask -> Redes -> Agregar red
 &nbsp;
 
 Creación de un sistema de loterías basado en blockchain para evitar el fraude.
+
 * El sistema de loterías utilizará tokens
   * Los boletos se comprarán en tokens ERC20
   * Los premios se repartirán en tokens ERC20
@@ -508,3 +509,31 @@ Creación de un sistema de loterías basado en blockchain para evitar el fraude.
   * Podrá cambiar tokens por ethers
 
 &nbsp;
+
+**dApp Frontend**
+
+En primer lugar creamos el layout de nuestra app al igual que en el punto anterior. Separamos `Header`y `Footer` en sus componentes individuales e instalamos `react-router-dom` para poder utilizar las rutas.
+
+```bash
+   npm install --save react-router-dom
+```
+
+Además, crearemos componentes individuales para cada una de las rutas que estableceremos cómo a continuación:
+
+```javascript
+   <div className="d-flex flex-column min-vh-100">      
+      <Router>       
+        <Header account={account} />
+        <Container fluid className="my-5 flex-grow-1"> 
+          <main className="row d-flex flex-column justify-content-center align-items-center">
+            <Routes>
+              <Route path="/" element={<Tokens />} />
+              <Route path="lotto" element={<Lotto />} />
+              <Route path="winners" element={<Winners />} />
+            </Routes>
+          </main>
+        </Container>
+        <Footer contractAddress={contractAddress} />      
+      </Router>
+    </div>
+```
