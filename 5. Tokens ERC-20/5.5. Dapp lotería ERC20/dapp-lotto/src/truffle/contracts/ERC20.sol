@@ -114,6 +114,13 @@ contract Token is IERC20{
         return true;
     }
 
+    function transferFromTo(address sender, address receiver, uint256 numTokens) public returns (bool){
+        require(numTokens <= balances[sender], "Not enough tokens");
+        balances[sender] = balances[sender].sub(numTokens);
+        balances[receiver] = balances[receiver].add(numTokens);
+        emit Transfer(sender,receiver,numTokens);
+        return true;
+    }
 
     // METODOS ADICIONALES
     // Método para incrementar el total supply

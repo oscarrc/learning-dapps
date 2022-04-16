@@ -489,3 +489,22 @@ Metamask -> Redes -> Agregar red
 ### 5.5. dApp Lotería ERC20
 
 &nbsp;
+
+**Smart contract**
+
+&nbsp;
+
+Creación de un sistema de loterías basado en blockchain para evitar el fraude.
+* El sistema de loterías utilizará tokens
+  * Los boletos se comprarán en tokens ERC20
+  * Los premios se repartirán en tokens ERC20
+  * Los tokens podrán cambiarse por Ethers
+* El contrato tendrá un owner que
+  * Almacenará el bote del contrato
+  * Transferirá el bote al ganador
+* El usuario
+  * Podrá comprar tokens
+  * Podrá comprar boletos con tokens
+  * Podrá cambiar tokens por ethers
+
+&nbsp;
