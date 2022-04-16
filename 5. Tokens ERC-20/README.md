@@ -618,3 +618,8 @@ En esta página crearemos formularios que permitan al usuario:
 &nbsp;
 
 **Gestión de ganadores**
+
+En la gestión de ganadores necesitaremos:
+* Botón para generar un ganador
+* Botón para consultar el ganador
+* Formulario para cashout tokens por ethers
