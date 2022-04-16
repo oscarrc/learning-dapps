@@ -23,6 +23,8 @@ contract Lotto {
     address public owner;
     // Dirección del contrato
     address public contract_address; 
+    // Dirección del ganador
+    address public winner_address;
 
     // Número de tokens a crear
     uint public total_supply = 10000;
@@ -182,12 +184,13 @@ contract Lotto {
         // Casteamos dos veces para asegurarnos de que el resultado sea entero
         uint position = uint(uint(keccak256(abi.encodePacked(block.timestamp))) % tikets_bought);
         // Obtenemos el ganador
-        uint winner = tickets[position];        
+        uint winner = tickets[position];   
+        winner_address = ticketAddress[winner];   
         // Emitimos el evento de ganador
         emit winningTicket(winner);
 
         // Transferimos los tokens al ganador
-        token.transferFromTo(owner, ticketAddress[winner], jackpot());
+        token.transferFromTo(owner, winner_address, jackpot());
     }
 
     function cashoutTokens(uint _num_tokens) public payable{        

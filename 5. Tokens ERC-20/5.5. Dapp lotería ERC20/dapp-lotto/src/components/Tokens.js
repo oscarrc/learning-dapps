@@ -114,7 +114,7 @@ const Tokens = ({contract, account}) => {
                             } }>
                                 <Form.Control value={to} onChange={ (e) => {
                                     setTo(e.target.value)
-                                } } type="text" placeholder="Comprar para..." />
+                                } } type="text" placeholder="Consultar para..." />
                                 <Button disabled={loading} variant="warning" type="submit">
                                     { loading ? 
                                         <Spinner className="mr- 4" role="status" aria-busy="true" animation="border" size="sm" /> :

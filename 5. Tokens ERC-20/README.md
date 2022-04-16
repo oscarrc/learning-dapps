@@ -614,3 +614,7 @@ En esta página crearemos formularios que permitan al usuario:
 * Ver boletos comprados
 * Ver el total del bote
 * Ver precio de un boleto
+
+&nbsp;
+
+**Gestión de ganadores**
