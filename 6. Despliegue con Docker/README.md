@@ -28,3 +28,7 @@ Para ello en el directorio raiz del proyecto crearemos los siguientes archivos:
 * `entrypoint.sh` - Script o comando que ejecutaremos al iniciar la imagen, en este caso, migraremos los contratos a BSC testnet e iniciaremos el servidor.
 * `exec.sh` - script para automatizar la build y ejecución de la imagen.
 * `.dockerignore` - similar a `.gitignore`nos permite ignorar archivos que no queremos incluir en la imagen, en este caso `node_modules`
+
+&nbsp;
+
+**dApp tokens ERC-20**
