@@ -31,4 +31,37 @@ Para ello en el directorio raiz del proyecto crearemos los siguientes archivos:
 
 &nbsp;
 
+Desplegaremos la dApp en BSC testnet, para ello, antes de construir la imagen modificaremos el truffle-config.js para que incluya lo siguiente:
+
+```javascript
+const HDWalletProvider = require('@truffle/hdwallet-provider');
+
+const fs = require('fs');
+const mnemonic = fs.readFileSync(".secret").toString().trim();
+
+module.exports = {  
+    (...)
+    networks: {
+        bscTestnet: {
+            provider: () => {
+                return new HDWalletProvider(mnemonic, "https://data-seed-prebsc-1-s1.binance.org:8545");
+            },
+            network_id: 97,
+            confirmations: 10,
+            timeout: 200,
+            skipDryRun: true
+        }
+    }
+    (...)
+}
+```
+
+E instalar el `HDWalletProvider` en el proyecto:
+
+```bash
+    npm install --save-dev @truffle/hdwallet-provider
+```
+
+&nbsp;
+
 **dApp tokens ERC-20**
