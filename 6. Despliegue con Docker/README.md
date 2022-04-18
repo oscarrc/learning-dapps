@@ -61,7 +61,3 @@ E instalar el `HDWalletProvider` en el proyecto:
 ```bash
     npm install --save-dev @truffle/hdwallet-provider
 ```
-
-&nbsp;
-
-**dApp tokens ERC-20**
