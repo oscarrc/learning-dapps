@@ -16,7 +16,6 @@
     "web3": "^1.7.0"
   },
   "devDependencies": {
-    "@openzeppelin/contracts": "^4.4.2",
     "@truffle/hdwallet-provider": "^2.0.6",
     "assert": "^2.0.0",
     "buffer": "^6.0.3",
