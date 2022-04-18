@@ -9,6 +9,7 @@ COPY . .
 
 # Instalación de dependencias
 RUN npm install
+RUN npm install -g truffle
 
 # Exponemos el puerto del servidor al contenedor
 EXPOSE 3000
